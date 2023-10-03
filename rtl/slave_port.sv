@@ -39,4 +39,8 @@ always_comb begin : NEXT_STATE_DECODER
   endcase
 end
 
+always_ff(@posedge in_clk or negedge reset_n) begin
+  state = reset_n == 0 ? RX_ADDR_P1 : next_state;
+end
+
 endmodule
