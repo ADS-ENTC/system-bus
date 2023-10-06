@@ -37,10 +37,11 @@ module master_port_tb;
 
         m_valid = 1;
         m_addr  = 16'h1234;
+        m_data  = 8'h75;
         mp_bgnt = 1;
         mp_ready = 1;
 
-        #100;
+        #200;
 
         $finish;
     end
