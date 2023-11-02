@@ -45,7 +45,7 @@ always_comb begin : NEXT_STATE_DECODER
 end
 
 // state sequencer with active low reset
-always_ff(@posedge in_clk or negedge reset_n) begin : STATE_SEQUENCER
+always_ff@(posedge in_clk or negedge reset_n) begin : STATE_SEQUENCER
   state = reset_n == 0 ? RX_ADDR_P1 : next_state;
 end
 
@@ -53,8 +53,8 @@ assign out_clk = in_clk;
 assign ser_rdata = internal_data[0];
 assign out_split_en = in_split_en; // TODO: think about this when implementing split transactions
 
-always_ff(@posedge in_clk or negedge reset_n) begin : OUTPUT_DECODER
-  if (reset_n == 0) count <= N_BITS'd0;
+always_ff@(posedge in_clk or negedge reset_n) begin : OUTPUT_DECODER
+  if (reset_n == 0) count <= 0;
   else unique case (state)
     RX_ADDR_P1: begin
                   par_out_valid_ready <= 1'd0;

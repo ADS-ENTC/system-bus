@@ -1,2 +1,4 @@
 vivado_project/
 Quartus_Prime_Project/
+
+*.sv.bak
