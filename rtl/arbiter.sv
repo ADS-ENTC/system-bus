@@ -22,7 +22,7 @@
 
 module arbiter #(
     parameter MASTER_COUNT_W=1,
-    parameter SLAVE_COUNT_W=3
+    parameter SLAVE_COUNT_W=4
 )(
     // bus connections
     input logic clk, reset_n,
@@ -80,16 +80,22 @@ module arbiter #(
                     end
                 end
                 TRNS_ADDR: begin
-                    slave_addr[slave_addr_bit] = m_addr[curr_master];
+                    slave_addr[slave_addr_bit] <= m_addr[curr_master];
                     if(slave_addr_bit==0) begin
-                        state=TRNS_DATA;
+                        state<=TRNS_DATA;
                     end
-                    slave_addr_bit = slave_addr_bit -1;
-                end
+                    slave_addr_bit <= slave_addr_bit -1;
+                end                
                 default: 
             endcase 
         end
     end
 
-    always_comb @()
+    
+    always_comb begin
+        if (state==TRNS_DATA) begin
+            s_wdata[slave_addr] = m_wdata[curr_master];
+            s_rdata[slave_addr] = m_rdata[curr_master];
+        end
+    end    
 endmodule
