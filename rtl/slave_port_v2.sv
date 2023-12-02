@@ -66,7 +66,7 @@ always_ff@(posedge clk) begin : OUTPUT_DECODER
         end
 
         WRITE: begin
-            ram[addr_in] <= data_in;
+            ram[addr_in[5:0]] <= data_in;
         end
     endcase
 end
