@@ -48,7 +48,7 @@ assign port_ready = (state == ADDR_IN) | (state == DATA_IN);
 assign port_valid = (state == SEND);
 
 always_ff@(posedge clk) begin : OUTPUT_DECODER
-    unique case (state)
+    unique0 case (state)
         IDLE: begin
             counter <= 0;
             addr_in <= 0;
