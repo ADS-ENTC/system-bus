@@ -2,7 +2,7 @@ module slave_port_v2#(
     parameter ADDR_WIDTH = 16,
     parameter DATA_WIDTH = 8
 )(
-    input logic mode, wr_bus, master_valid, master_ready, resetn, clk,
+    input logic mode, wr_bus, master_valid, master_ready, rstn, clk,
     output logic rd_bus, slave_ready, slave_valid
 );
 
@@ -28,17 +28,17 @@ assign slave_valid = port_valid;
 
 always_comb begin : NEXT_STATE_DECODER
     unique case (state)
-        IDLE: next_state = ( (port_ready == 1 && master_valid == 1 ) ? ADDR_IN : IDLE );
+        IDLE: next_state = ( ( master_valid == 1 ) ? ADDR_IN : IDLE );
         ADDR_IN: next_state = ( (port_ready == 1 && master_valid == 1 ) ? ( (counter < ADDR_WIDTH) ? ADDR_IN : DATA_IN) : IDLE );
         DATA_IN: next_state = ( (port_ready == 1 && master_valid == 1 ) ? ( (counter < ADDR_WIDTH+DATA_WIDTH) ? DATA_IN : ( (mode == 0) ? READ : WRITE ) ) : IDLE );
         WRITE: next_state = IDLE;
-        READ: next_state = ( (master_ready == 0) ? READ : SEND );
-        SEND: next_state = IDLE;
+        READ: next_state = SEND;
+        SEND: next_state = ( (master_ready == 1) ? IDLE : SEND);
     endcase
 end
 
 always_ff@(posedge clk) begin : STATE_SEQUENCER
-    if (!resetn) state <= IDLE;
+    if (!rstn) state <= IDLE;
     else unique case (state)
         IDLE: begin
             if (next_state == ADDR_IN) begin
@@ -64,7 +64,7 @@ end
 
 
 // OUTPUT DECODER
-assign port_ready = (state == IDLE) | (state == ADDR_IN) | (state == DATA_IN);
+assign port_ready = (state == ADDR_IN) | (state == DATA_IN);
 assign port_valid = (state == SEND);
 
 always_ff@(posedge clk) begin : OUTPUT_DECODER
