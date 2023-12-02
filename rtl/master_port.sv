@@ -27,7 +27,7 @@ module master_port (
     always_comb begin : NEXT_STATE_LOGIC
         unique case (state)
             IDLE:               next_state = m_start ? FETCH : IDLE;
-            FETCH:              next_state = slave_ready ? ADDR : IDLE;
+            FETCH:              next_state = ADDR;
             ADDR:               next_state = (t_count == 15 & slave_ready) ? (t_mode ? WR_DATA : RD_DATA) : ADDR;
             WR_DATA:            next_state = (t_count == 7  & slave_ready) ? IDLE : WR_DATA;
             RD_DATA:            next_state = (t_count == 7 & slave_valid) ? CLEAN : RD_DATA;
