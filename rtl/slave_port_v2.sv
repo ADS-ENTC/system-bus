@@ -71,11 +71,10 @@ always_ff@(posedge clk) begin : OUTPUT_DECODER
 
         READ: begin
             counter <= 0;
+            rd_bus <= ram[addr_in[5:0]][DATA_WIDTH-1-counter];
         end
 
         SEND: begin
-            rd_bus <= ram[addr_in[5:0]][DATA_WIDTH-1-counter];
-
             if (master_ready == 1) counter <= counter + 1;
         end
     endcase
