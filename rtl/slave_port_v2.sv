@@ -8,7 +8,7 @@ module slave_port_v2#(
 
 // local parameters
 localparam COUNTER_LENGTH = $clog2(ADDR_WIDTH+DATA_WIDTH);
-localparam NUM_STATES = 6;
+localparam NUM_STATES = 7;
 localparam STATE_N_BITS = $clog2(NUM_STATES);
 
 // internal signals
@@ -21,18 +21,19 @@ logic port_ready, port_valid;
 logic [DATA_WIDTH-1:0]ram[63:0];
 
 // definition of states
-enum logic[STATE_N_BITS-1:0] {IDLE, ADDR_IN, DATA_IN, WRITE, READ, SEND} state, next_state;
+enum logic[STATE_N_BITS-1:0] {IDLE, ADDR_IN, DATA_IN, WRITE, READ, SEND, SEND_PREL} state, next_state;
 
 assign slave_ready = port_ready;
 assign slave_valid = port_valid;
 
 always_comb begin : NEXT_STATE_DECODER
-    unique case (state)
+    unique0 case (state)
         IDLE: next_state = ( ( master_valid == 1 ) ? ADDR_IN : IDLE );
         ADDR_IN: next_state = ( (counter < ADDR_WIDTH) ? ( (port_ready == 1 && master_valid == 1 ) ? ADDR_IN : IDLE ) : ( (mode == 1) ? DATA_IN : READ ) );
         DATA_IN: next_state = ( (counter < ADDR_WIDTH+DATA_WIDTH) ? ( ( port_ready == 1 && master_valid == 1 ) ? DATA_IN : IDLE ) : WRITE );
         WRITE: next_state = IDLE;
-        READ: next_state = SEND;
+        READ: next_state = SEND_PREL;
+        SEND_PREL: next_state = SEND;
         SEND: next_state = ( (counter < DATA_WIDTH) ? SEND : IDLE );
     endcase
 end
@@ -71,7 +72,11 @@ always_ff@(posedge clk) begin : OUTPUT_DECODER
 
         READ: begin
             counter <= 0;
+        end
+
+        SEND_PREL: begin
             rd_bus <= ram[addr_in[5:0]][DATA_WIDTH-1-counter];
+            if (master_ready == 1) counter <= counter + 1;
         end
 
         SEND: begin
