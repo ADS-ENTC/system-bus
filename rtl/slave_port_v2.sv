@@ -39,27 +39,7 @@ end
 
 always_ff@(posedge clk) begin : STATE_SEQUENCER
     if (!rstn) state <= IDLE;
-    else unique case (state)
-        IDLE: begin
-            if (next_state == ADDR_IN) begin
-                addr_in[ADDR_WIDTH-1] <= wr_bus;
-                counter <= counter + 1;
-                state <= next_state;
-            end
-            else state <= next_state;
-        end
-
-        ADDR_IN: begin
-            if (next_state == DATA_IN) begin
-                data_in[DATA_WIDTH-1] <= wr_bus;
-                counter <= counter + 1;
-                state <= next_state;
-            end
-            else state <= next_state;
-        end
-        
-        default: state <= next_state;
-    endcase
+    else state <= next_state;
 end
 
 
