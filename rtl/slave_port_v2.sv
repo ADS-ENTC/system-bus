@@ -30,7 +30,7 @@ always_comb begin : NEXT_STATE_DECODER
     unique case (state)
         IDLE: next_state = ( ( master_valid == 1 ) ? ADDR_IN : IDLE );
         ADDR_IN: next_state = ( (port_ready == 1 && master_valid == 1 ) ? ( (counter < ADDR_WIDTH) ? ADDR_IN : DATA_IN) : IDLE );
-        DATA_IN: next_state = ( (port_ready == 1 && master_valid == 1 ) ? ( (counter < ADDR_WIDTH+DATA_WIDTH) ? DATA_IN : ( (mode == 0) ? READ : WRITE ) ) : IDLE );
+        DATA_IN: next_state = ( (counter < ADDR_WIDTH+DATA_WIDTH) ? ( ( port_ready == 1 && master_valid == 1 ) ? DATA_IN : IDLE ) : ( (mode == 0) ? READ : WRITE ) );
         WRITE: next_state = IDLE;
         READ: next_state = SEND;
         SEND: next_state = ( (master_ready == 1) ? IDLE : SEND);
