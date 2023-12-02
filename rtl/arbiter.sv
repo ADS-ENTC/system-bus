@@ -1,101 +1,137 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 07.10.2023 09:01:46
-// Design Name: 
-// Module Name: arbiter
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
+module arbiter(
+    input   logic       clk,
+    input   logic       rstn,
 
+    // connections to master 1
+    input   logic       m1_mode,
+    output  logic       m1_rd_bus,
+    input   logic       m1_wr_bus,
+    output  logic       m1_ack,
+    input   logic       m1_master_valid,
+    output  logic       m1_slave_ready,
+    input   logic       m1_master_ready,
+    output  logic       m1_slave_valid,
 
-module arbiter #(
-    parameter MASTER_COUNT_W=1,
-    parameter SLAVE_COUNT_W=4
-)(
-    // bus connections
-    input logic clk, reset_n,
+    // connections to slave 1
+    output  logic       s1_mode,
+    output  logic       s1_wr_bus,
+    output  logic       s1_master_valid,
+    output  logic       s1_master_ready,
+    input   logic       s1_rd_bus,
+    input   logic       s1_slave_ready,
+    input   logic       s1_slave_valid,
 
-    // master connections
-    input logic 
-    m_addr[MASTER_COUNT_W-1:0],
-    [1:0] m_trans[MASTER_COUNT_W-1:0], 
-    m_wdata[MASTER_COUNT_W-1:0], 
-    m_write[MASTER_COUNT_W-1:0],
-    m_breq[MASTER_COUNT_W-1:0],
+    // connections to slave 2
+    output  logic       s2_mode,
+    output  logic       s2_wr_bus,
+    output  logic       s2_master_valid,
+    output  logic       s2_master_ready,
+    input   logic       s2_rd_bus,
+    input   logic       s2_slave_ready,
+    input   logic       s2_slave_valid,
 
-    output logic
-    m_rdata[MASTER_COUNT_W-1:0],
-    [1:0] m_resp[MASTER_COUNT_W-1:0],
-    m_ready[MASTER_COUNT_W-1:0],
-    m_grant[MASTER_COUNT_W-1:0],
+    // connections to slave 3
+    output  logic       s3_mode,
+    output  logic       s3_wr_bus,
+    output  logic       s3_master_valid,
+    output  logic       s3_master_ready,
+    input   logic       s3_rd_bus,
+    input   logic       s3_slave_ready,
+    input   logic       s3_slave_valid,
 
-    //slave connections
-    input logic
-    s_addr[SLAVE_COUNT_W-1:0],
-    s_rdata[SLAVE_COUNT_W-1:0],
-    s_resp[SLAVE_COUNT_W-1:0],
-    s_ready[SLAVE_COUNT_W-1:0],
+    // connections to bus bridge
+    output  logic       bb_mode,
+    output  logic       bb_wr_bus,
+    output  logic       bb_master_valid,
+    output  logic       bb_master_ready,
+    input   logic       bb_rd_bus,
+    input   logic       bb_slave_ready,
+    input   logic       bb_slave_valid
+);  
 
-    output logic
-    [1:0] s_trans[SLAVE_COUNT_W-1:0],// not sure
-    s_wdata[SLAVE_COUNT_W-1:0],
-    s_write[SLAVE_COUNT_W-1:0],
-    s_select[SLAVE_COUNT_W-1:0]
+    enum logic[3:0] {IDLE, ADDR_1, ACK, CLEAN, ADDR_2} state, next_state;
 
-    );
+    logic[4:0]  t_addr;
+    logic[3:0]  t_count;
+    logic[1:0]  t_ss, t_ss_reg;
 
-    localparam MASTER_COUNT=1<<MASTER_COUNT_W;
-
-    enum logic [1:0] {IDLE,TRNS_ADDR,TRNS_DATA} state;
-    logic curr_master,curr_slave;
-    logic [SLAVE_COUNT_W-1:0] slave_addr;
-    logic [$clog2(SLAVE_COUNT_W)-1:0] slave_addr_bit;
-
-    always_ff @( posedge clk or negedge reset_n ) begin : STATE_CHANGIN
-        if(!reset_n) begin
-            state <=IDLE;
-        end else begin
-            unique case (state)
-                IDLE: begin
-                    for ( int i=0 ;i<MASTER_COUNT;i++ ) begin
-                        if (m_breq[i]) begin
-                            curr_master <= i;
-                            state <= TRNS_ADDR;
-                            m_grant[i] <= 1;                             
-                            slave_addr_bit <= SLAVE_COUNT_W-1;
-                            break;
-                        end
-                    end
-                end
-                TRNS_ADDR: begin
-                    slave_addr[slave_addr_bit] <= m_addr[curr_master];
-                    if(slave_addr_bit==0) begin
-                        state<=TRNS_DATA;
-                    end
-                    slave_addr_bit <= slave_addr_bit -1;
-                end                
-                default: 
-            endcase 
-        end
+    always_comb begin : NEXT_STATE_LOGIC
+        unique case (state)
+            IDLE:               next_state = m1_master_valid ? ADDR_1 : IDLE;
+            ADDR_1:             next_state = (t_count == 4 & m1_master_valid) ? ACK : ADDR_1;
+            ACK:                next_state = m1_master_ready ? (m1_ack ? ADDR_2 : CLEAN) : ACK;
+            CLEAN:              next_state = IDLE;
+            default:            next_state = IDLE;
+        endcase
     end
 
-    
-    always_comb begin
-        if (state==TRNS_DATA) begin
-            s_wdata[slave_addr] = m_wdata[curr_master];
-            s_rdata[slave_addr] = m_rdata[curr_master];
+    always_ff @(posedge clk or negedge rstn) begin : STATE_SEQUENCER
+        state <= !rstn ? IDLE : next_state;
+    end
+
+    always_comb begin : OUTPUT_LOGIC
+        m1_slave_ready = state == ADDR_1;
+        m1_slave_valid = state == ACK;
+
+        unique0 case (t_addr[4:3])
+            2'b00: begin
+                unique0 case (t_addr[2:1])
+                    2'b00: begin
+                        if (t_addr[0] == 0) begin
+                            m1_ack = 1;
+                            t_ss = 0;
+                        end else begin
+                            m1_ack = 0;
+                            t_ss = 0;
+                        end
+                    end
+                    2'b01: begin
+                        m1_ack = 1;
+                        t_ss = 1;
+                    end
+                    2'b10: begin
+                        m1_ack = 1;
+                        t_ss = 2;
+                    end
+                    default: begin
+                        m1_ack = 0;
+                        t_ss = 0;
+                    end
+                endcase
+            end
+            2'b11: begin
+                m1_ack = 1;
+                t_ss = 3;
+            end
+            default: begin
+                m1_ack = 0;
+                t_ss = 0;
+            end
+        endcase
+    end
+
+    always_ff @(posedge clk or negedge rstn) begin : REG_LOGIC
+        if (!rstn) begin
+            t_count   <= 0;
+            t_addr    <= 0;
+            t_ss_reg  <= 0;
+        end else begin
+            unique0 case (state)
+                ADDR_1: begin
+                    t_count <= t_count + 1;
+                    t_addr  <= {t_addr[3:0], m1_wr_bus};
+                end
+
+                ACK: begin
+                    t_ss_reg <= t_ss;
+                end
+
+                CLEAN: begin
+                    t_count <= 0;
+                    t_addr  <= 0;
+                    t_ss_reg <= 0;
+                end
+            endcase
         end
-    end    
+    end
 endmodule
