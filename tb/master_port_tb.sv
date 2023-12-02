@@ -1,20 +1,23 @@
 `timescale 1ps/1ps
 
 module master_port_tb;
-    logic       rstn;
     logic       clk;
+    logic       rstn;
 
-    logic       mp_breq;
-    logic       mp_bgnt;
-    logic       mp_addr;
-    logic       mp_wdata;
-    logic       mp_ready;
-    logic       mp_valid;
+    logic       mode;
+    logic       rd_bus;
+    logic       wr_bus;
+    logic       master_valid;
+    logic       slave_ready;
+    logic       master_ready;
+    logic       slave_valid;
 
-    logic[7:0]  m_data;
+    logic[7:0]  m_wr_data;
+    logic[7:0]  m_rd_data;
     logic[15:0] m_addr;
-    logic       m_valid;
-    logic       m_ready;
+    logic       m_mode;
+    logic       m_wr_en;
+    logic       m_start;
 
     master_port mp (.*);
 
@@ -24,24 +27,51 @@ module master_port_tb;
     end
 
     initial begin
+        rstn        = 0;
+        #20;
         rstn        = 1;
-        m_addr      = 0;
-        m_data      = 0;
-        m_valid     = 0;
-        mp_ready    = 0;
-        mp_bgnt     = 0;
+        #20;
 
-        #10 rstn = 0;
-        #10 rstn = 1;
-        #10;
+        @(negedge clk);
+        m_wr_data   = 8'h5A;
+        m_addr      = 16'h1234;
+        m_mode      = 1;
+        m_start     = 1;
+        slave_ready = 1;
 
-        m_valid = 1;
-        m_addr  = 16'h1234;
-        m_data  = 8'h75;
-        mp_bgnt = 1;
-        mp_ready = 1;
+        @(negedge clk);
+        m_start     = 0;
 
+        #400;
+
+
+        @(negedge clk);
+        m_mode      = 0;
+        m_start     = 1;
+        slave_valid = 1;
+        rd_bus      = 1;
+
+        @(negedge clk);
+        m_start     = 0;
+        rd_bus      = 0;
+
+
+        
         #200;
+
+        @(negedge clk);
+        rd_bus      = 1;
+
+        @(negedge clk);
+        rd_bus      = 1;
+
+        @(negedge clk);
+        rd_bus      = 0;
+
+        @(negedge clk);
+        rd_bus      = 1;
+
+        #400;
 
         $finish;
     end
