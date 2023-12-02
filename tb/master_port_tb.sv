@@ -21,6 +21,8 @@ module master_port_tb;
 
     master_port mp (.*);
 
+
+
     initial begin
         clk = 0;
         forever #5 clk = ~clk;
@@ -33,8 +35,8 @@ module master_port_tb;
         #20;
 
         @(negedge clk);
-        m_wr_data   = 8'h5A;
-        m_addr      = 16'h1234;
+        m_wr_data   = 8'hd3;
+        m_addr      = 16'habcd;
         m_mode      = 1;
         m_start     = 1;
         slave_ready = 1;
