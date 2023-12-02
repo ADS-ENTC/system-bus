@@ -32,22 +32,26 @@ module top_tb;
         #20;
 
         @(negedge clk);
+        #1;
         m_wr_data   = 8'h5A;
         m_addr      = 16'hF234;
         m_mode      = 1;
         m_start     = 1;
 
         @(negedge clk);
+        #1;
         m_start     = 0;
 
         #400;
 
 
         @(negedge clk);
+        #1;
         m_mode      = 0;
         m_start     = 1;
 
         @(negedge clk);
+        #1;
         m_start     = 0;
 
 
