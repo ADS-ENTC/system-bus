@@ -83,6 +83,7 @@ module arbiter#(
     logic       slave_ready;
     logic       master_ready;
     logic       slave_valid;
+    logic       breq;
 
     always_comb begin : NEXT_STATE_LOGIC
         unique case (state)
@@ -91,7 +92,7 @@ module arbiter#(
             REQ2:               next_state = ( (m2_breq == 0) ? IDLE : (m2_master_valid) ? ADDR : REQ2 );
             REQ12:              next_state = ( (m1_breq == 0 || m2_breq == 0) ? IDLE : (m1_master_valid) ? ADDR : REQ12 );
             ADDR:               next_state = (t_count == 5 && master_valid) ? (ack ? CONNECTED : CLEAN) : ADDR;
-            CONNECTED:          next_state = (t_count == 31) ? CLEAN : CONNECTED;
+            CONNECTED:          next_state = (breq == 0) ? CLEAN : CONNECTED;
             CLEAN:              next_state = IDLE;
             default:            next_state = IDLE;
         endcase
@@ -117,6 +118,7 @@ module arbiter#(
                     m2_slave_ready = slave_ready;
                     master_ready   = m2_master_ready;
                     m2_slave_valid = slave_valid;
+                    breq           = m2_breq;
 
                     m1_rd_bus      = 0;
                     m1_ack         = 0;
@@ -133,6 +135,7 @@ module arbiter#(
                     m1_slave_ready = slave_ready;
                     master_ready   = m1_master_ready;
                     m1_slave_valid = slave_valid;
+                    breq           = m1_breq;
 
                     m2_rd_bus      = 0;
                     m2_ack         = 0;
@@ -151,6 +154,7 @@ module arbiter#(
                     m1_slave_ready = slave_ready;
                     master_ready   = m1_master_ready;
                     m1_slave_valid = slave_valid;
+                    breq           = m1_breq;
 
                     m2_rd_bus      = 0;
                     m2_ack         = 0;
@@ -167,6 +171,7 @@ module arbiter#(
                     m2_slave_ready = slave_ready;
                     master_ready   = m2_master_ready;
                     m2_slave_valid = slave_valid;
+                    breq           = m2_breq;
 
                     m1_rd_bus      = 0;
                     m1_ack         = 0;
