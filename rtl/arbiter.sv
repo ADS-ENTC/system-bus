@@ -70,9 +70,49 @@ module arbiter(
         state <= !rstn ? IDLE : next_state;
     end
 
-    assign m1_slave_ready = state == ADDR ? 1 : t_m1_slave_ready;
+    assign m1_slave_ready = m1_ack ? t_m1_slave_ready : state == ADDR;
 
     always_comb begin : OUTPUT_LOGIC
+        unique0 case (t_addr[4:3])
+            2'b11: begin
+                slave = BB;
+                m1_ack = 1;
+            end
+
+            2'b00: begin
+                unique0 case (t_addr[2:1])
+                    2'b01: begin
+                        slave = S1;
+                        m1_ack = 1;
+                    end
+                    2'b10: begin
+                        slave = S2;
+                        m1_ack = 1;
+                    end
+                    2'b00: begin
+                        unique0 case (t_addr[0])
+                            1'b0: begin
+                                slave = S1;
+                                m1_ack = 1;
+                            end
+                            1'b1: begin
+                                slave = S1;
+                                m1_ack = 0;
+                            end
+                        endcase
+                    end
+                    default: begin
+                        slave = S1;
+                        m1_ack = 0;
+                    end
+                endcase
+            end
+            default: begin
+                slave = S1;
+                m1_ack = 0;
+            end
+        endcase
+
         unique case (slave)
             S1: begin
                 s1_mode         = m1_mode;
@@ -171,46 +211,6 @@ module arbiter(
                 m1_rd_bus       = bb_rd_bus;
             end
         endcase
-
-        unique0 case (t_addr[4:3])
-            2'b11: begin
-                slave = BB;
-                m1_ack = 1;
-            end
-
-            2'b00: begin
-                unique0 case (t_addr[2:1])
-                    2'b01: begin
-                        slave = S1;
-                        m1_ack = 1;
-                    end
-                    2'b10: begin
-                        slave = S2;
-                        m1_ack = 1;
-                    end
-                    2'b00: begin
-                        unique0 case (t_addr[0])
-                            1'b0: begin
-                                slave = S1;
-                                m1_ack = 1;
-                            end
-                            1'b1: begin
-                                slave = S1;
-                                m1_ack = 0;
-                            end
-                        endcase
-                    end
-                    default: begin
-                        slave = S1;
-                        m1_ack = 0;
-                    end
-                endcase
-            end
-            default: begin
-                slave = S1;
-                m1_ack = 0;
-            end
-        endcase
     end
 
     always_ff @(posedge clk) begin : REG_LOGIC
@@ -222,6 +222,10 @@ module arbiter(
                 ADDR: if (m1_master_valid) begin
                     t_count <= t_count + 1;
                     t_addr[4 - t_count] <= m1_wr_bus;
+                end
+
+                CONNECTED: begin
+                    t_count <= t_count + 1;
                 end
 
                 CLEAN: begin

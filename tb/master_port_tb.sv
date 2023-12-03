@@ -42,13 +42,9 @@ module master_port_tb;
         m_start     = 1;
         slave_ready = 1;
         ack         = 0;
-        slave_valid = 0;
 
         @(negedge clk);
         m_start     = 0;
-
-        #80;
-        slave_valid = 1;
         ack         = 1;
 
         #400;

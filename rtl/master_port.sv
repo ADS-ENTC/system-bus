@@ -18,7 +18,7 @@ module master_port (
     output  logic       m_wr_en,
     input   logic       m_start
 );
-    enum logic[3:0] {IDLE, FETCH, ADDR_1, ACK, ADDR_2, WR_DATA, RD_DATA, CLEAN} state, next_state;
+    enum logic[3:0] {IDLE, FETCH, ADDR_1, ADDR_2, WR_DATA, RD_DATA, CLEAN} state, next_state;
     
     logic[3:0]  t_count;
     logic[7:0]  t_wr_data;
@@ -30,8 +30,7 @@ module master_port (
         unique case (state)
             IDLE:               next_state = m_start ? FETCH : IDLE;
             FETCH:              next_state = ADDR_1;
-            ADDR_1:             next_state = (t_count == 4 & slave_ready) ? ACK : ADDR_1;
-            ACK:                next_state = slave_valid ? (ack ? ADDR_2 : CLEAN) : ACK;
+            ADDR_1:             next_state = (t_count == 5 & slave_ready) ? (ack ? ADDR_2 : CLEAN) : ADDR_1;
             ADDR_2:             next_state = (t_count == 15 & slave_ready) ? (t_mode ? WR_DATA : RD_DATA) : ADDR_2;
             WR_DATA:            next_state = (t_count == 7  & slave_ready) ? IDLE : WR_DATA;
             RD_DATA:            next_state = (t_count == 7 & slave_valid) ? CLEAN : RD_DATA;
@@ -48,7 +47,7 @@ module master_port (
         wr_bus  = state == WR_DATA ? t_wr_data[7] : t_addr[15];
         mode    = t_mode;
         master_valid = state == ADDR_2 || state == ADDR_1 || state == WR_DATA;
-        master_ready = state == RD_DATA || state == ACK;
+        master_ready = state == RD_DATA;
         m_rd_data = t_rd_data;
         m_wr_en = state == CLEAN & t_count == 8;
     end
