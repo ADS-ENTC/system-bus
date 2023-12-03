@@ -49,21 +49,17 @@ module arbiter(
     input   logic       bb_slave_valid
 );  
 
-    enum logic[3:0] {IDLE, ADDR_P1, ADDR_P2, ADDR_P3, CONNECTED, ACK, CLEAN} state, next_state;
-    enum logic[1:0] {S1, S2, S3, BB} slave, slave_hold;
+    enum logic[3:0] {IDLE, ADDR, CONNECTED, CLEAN} state, next_state;
+    enum logic[1:0] {S1, S2, S3, BB} slave;
 
     logic[4:0]  t_addr;
     logic[4:0]  t_count;
     logic       t_m1_slave_ready;
-    logic       ack_hold;
 
     always_comb begin : NEXT_STATE_LOGIC
         unique case (state)
-            IDLE:               next_state = m1_master_valid ? ADDR_P1 : IDLE;
-            ADDR_P1:            next_state = (t_count == 1 && m1_master_valid) ? ADDR_P2 : ADDR_P1;
-            ADDR_P2:            next_state = (t_count == 3 && m1_master_valid) ? ADDR_P3 : ADDR_P2;
-            ADDR_P3:            next_state = (t_count == 4 && m1_master_valid) ? ACK : ADDR_P3;
-            ACK:                next_state = m1_ack ? CONNECTED : CLEAN;
+            IDLE:               next_state = m1_master_valid ? ADDR : IDLE;
+            ADDR:               next_state = (t_count == 5 && m1_master_valid) ? (m1_ack ? CONNECTED : CLEAN) : ADDR;
             CONNECTED:          next_state = (t_count == 31) ? CLEAN : CONNECTED;
             CLEAN:              next_state = IDLE;
             default:            next_state = IDLE;
@@ -74,9 +70,7 @@ module arbiter(
         state <= !rstn ? IDLE : next_state;
     end
 
-    assign m1_slave_ready = ((state == ADDR_P1) || (state == ADDR_P2) || (state == ADDR_P3)) ? 1 : t_m1_slave_ready;
-    assign m1_ack = t_addr == 5'b00000 ? 1 : ack_hold;
-    assign slave = t_addr == 5'b00000 ? S1 : slave_hold;
+    assign m1_slave_ready = state == ADDR ? 1 : t_m1_slave_ready;
 
     always_comb begin : OUTPUT_LOGIC
         unique case (slave)
@@ -177,63 +171,62 @@ module arbiter(
                 m1_rd_bus       = bb_rd_bus;
             end
         endcase
+
+        unique0 case (t_addr[4:3])
+            2'b11: begin
+                slave = BB;
+                m1_ack = 1;
+            end
+
+            2'b00: begin
+                unique0 case (t_addr[2:1])
+                    2'b01: begin
+                        slave = S1;
+                        m1_ack = 1;
+                    end
+                    2'b10: begin
+                        slave = S2;
+                        m1_ack = 1;
+                    end
+                    2'b00: begin
+                        unique0 case (t_addr[0])
+                            1'b0: begin
+                                slave = S1;
+                                m1_ack = 1;
+                            end
+                            1'b1: begin
+                                slave = S1;
+                                m1_ack = 0;
+                            end
+                        endcase
+                    end
+                    default: begin
+                        slave = S1;
+                        m1_ack = 0;
+                    end
+                endcase
+            end
+            default: begin
+                slave = S1;
+                m1_ack = 0;
+            end
+        endcase
     end
 
     always_ff @(posedge clk) begin : REG_LOGIC
         if (!rstn) begin
             t_count     <= 0;
             t_addr      <= 0;
-            slave_hold  <= S1;
-            m1_ack      <= 0;
         end else begin
             unique0 case (state)
-                IDLE: begin
-                    slave_hold  <= S1;
-                    ack_hold      <= 0;
-                end
-                ADDR_P1: if (m1_master_valid) begin
+                ADDR: if (m1_master_valid) begin
                     t_count <= t_count + 1;
-                    t_addr  <= {t_addr[3:0], m1_wr_bus};
-                end
-
-                ADDR_P2: if (m1_master_valid) begin
-                    if (t_count == 2) begin
-                        unique0 case (t_addr[1:0])
-                            2'b11: begin
-                                slave_hold   <= BB;
-                                ack_hold  <= 1;
-                            end
-                        endcase
-                    end
-                    t_count <= t_count + 1;
-                    t_addr  <= {t_addr[2:0], m1_wr_bus};
-                end
-
-                ADDR_P3: if (m1_master_valid) begin
-                    if (t_count == 4) begin
-                        unique0 case (t_addr[3:0])
-                            4'b0001: begin
-                                slave_hold <= S2;
-                                ack_hold <= 1;
-                            end
-                            4'b0010: begin
-                                slave_hold <= S3;
-                                ack_hold <= 1;
-                            end
-                        endcase
-                    end
-                    t_count <= t_count + 1;
-                    t_addr  <= {t_addr[3:0], m1_wr_bus};
-                end
-
-                ACK: if (m1_master_valid) begin
-                    t_count <= t_count + 1;
+                    t_addr[4 - t_count] <= m1_wr_bus;
                 end
 
                 CLEAN: begin
                     t_count <= 0;
                     t_addr  <= 0;
-                    slave_hold   <= S1;
                 end
             endcase
         end
