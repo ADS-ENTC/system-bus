@@ -570,7 +570,7 @@ module arbiter_tb;
             bus_bridge_addr_hold = $urandom_range(0, 2**14-1);
             m2_wr_data   = $urandom_range(0, 2**8-1);
             m2_addr      = {2'b11, bus_bridge_addr_hold};
-            m2_mode_in   = 1;
+            m2_mode_in   = 0;
             m2_start     = 1;
 
             bus_bridge_addr_hold = $urandom_range(0, 2**14-1);
@@ -601,7 +601,7 @@ module arbiter_tb;
             assert (m1_wr_data == m1_rd_data) 
                 $display("Priority Test passed!");
             else 
-                $error("Priority Test failed!. expected %h, got %h", m1_wr_data, m1_rd_data);
+                $error("Priority Test failed!. expected %h, got %h", m1_addr, m2_addr);
 
             @(negedge clk);
             m2_start     = 0;
