@@ -288,6 +288,50 @@ module arbiter_tb;
             m_start     = 0;
 
             #400;
+
+
+            // testing invalid address
+            @(negedge clk);
+            m_wr_data   = $urandom_range(0, 2**8-1);
+            m_addr      = $urandom_range(0, 2**16-1);
+            m_mode      = 1;
+            m_start     = 1;
+
+            @(negedge clk);
+            m_start     = 0;
+
+            while (mp.t_count != 5) begin
+                @(negedge clk);
+            end
+
+            if (m_addr[15:11] == 5'b00000 || m_addr[15:12] == 4'b0001 || m_addr[15:12] == 4'b0010 || m_addr[15:14] == 2'b11) begin
+                #400;
+
+                @(negedge clk);
+                m_mode      = 0;
+                m_start     = 1;
+
+                while (!m_wr_en) begin
+                    @(negedge clk);
+                end
+
+                assert (m_wr_data == m_rd_data) 
+                    $display("Slave 1 Test passed!");
+                else 
+                    $error("Slave 1 Test failed!. expected %h, got %h", m_wr_data, m_rd_data);
+
+                @(negedge clk);
+                m_start     = 0;
+            end
+            else begin
+                assert(m1_ack == 0) 
+                    $display("Invalid address test passed!");
+                else
+                    $error("INVALID ADDRESS TEST FAILED!");
+            end
+
+            repeat (2) 
+                @(posedge clk);
         end
 
         $finish;
