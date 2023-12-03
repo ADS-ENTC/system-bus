@@ -49,22 +49,21 @@ module arbiter(
     input   logic       bb_slave_valid
 );  
 
-    enum logic[3:0] {IDLE, ADDR_P1, ADDR_P2, ADDR_P3, CONNECTED, ACK_PRE, ACK, CLEAN} state, next_state;
-    enum logic[1:0] {S1, S2, S3, BB} slave;
+    enum logic[3:0] {IDLE, ADDR_P1, ADDR_P2, ADDR_P3, CONNECTED, ACK, CLEAN} state, next_state;
+    enum logic[1:0] {S1, S2, S3, BB} slave, slave_hold;
 
     logic[4:0]  t_addr;
     logic[4:0]  t_count;
     logic       t_m1_slave_ready;
-    logic       t_m1_slave_valid;
+    logic       ack_hold;
 
     always_comb begin : NEXT_STATE_LOGIC
         unique case (state)
             IDLE:               next_state = m1_master_valid ? ADDR_P1 : IDLE;
             ADDR_P1:            next_state = (t_count == 1 && m1_master_valid) ? ADDR_P2 : ADDR_P1;
             ADDR_P2:            next_state = (t_count == 3 && m1_master_valid) ? ADDR_P3 : ADDR_P2;
-            ADDR_P3:            next_state = (t_count == 4 && m1_master_valid) ? ACK_PRE : ADDR_P3;
-            ACK_PRE:            next_state = ACK;
-            ACK:                next_state = m1_master_ready ? (m1_ack ? CONNECTED : CLEAN) : ACK;
+            ADDR_P3:            next_state = (t_count == 4 && m1_master_valid) ? ACK : ADDR_P3;
+            ACK:                next_state = m1_ack ? CONNECTED : CLEAN;
             CONNECTED:          next_state = (t_count == 31) ? CLEAN : CONNECTED;
             CLEAN:              next_state = IDLE;
             default:            next_state = IDLE;
@@ -76,17 +75,18 @@ module arbiter(
     end
 
     assign m1_slave_ready = ((state == ADDR_P1) || (state == ADDR_P2) || (state == ADDR_P3)) ? 1 : t_m1_slave_ready;
-    assign m1_slave_valid = state == ACK ? 1 : t_m1_slave_valid;
+    assign m1_ack = t_addr == 5'b00000 ? 1 : ack_hold;
+    assign slave = t_addr == 5'b00000 ? S1 : slave_hold;
 
     always_comb begin : OUTPUT_LOGIC
         unique case (slave)
             S1: begin
                 s1_mode         = m1_mode;
                 s1_wr_bus       = m1_wr_bus;
-                s1_master_valid = m1_master_valid;
+                s1_master_valid = m1_master_valid && m1_ack;
                 s1_master_ready = m1_master_ready;
                 t_m1_slave_ready  = s1_slave_ready;
-                t_m1_slave_valid  = s1_slave_valid;
+                m1_slave_valid  = s1_slave_valid;
                 m1_rd_bus       = s1_rd_bus;
                 
                 s2_mode         = 0;
@@ -112,10 +112,10 @@ module arbiter(
 
                 s2_mode         = m1_mode;
                 s2_wr_bus       = m1_wr_bus;
-                s2_master_valid = m1_master_valid;
+                s2_master_valid = m1_master_valid && m1_ack;
                 s2_master_ready = m1_master_ready;
                 t_m1_slave_ready  = s2_slave_ready;
-                t_m1_slave_valid  = s2_slave_valid;
+                m1_slave_valid  = s2_slave_valid;
                 m1_rd_bus       = s2_rd_bus;
 
                 s3_mode         = 0;
@@ -141,10 +141,10 @@ module arbiter(
 
                 s3_mode         = m1_mode;
                 s3_wr_bus       = m1_wr_bus;
-                s3_master_valid = m1_master_valid;
+                s3_master_valid = m1_master_valid && m1_ack;
                 s3_master_ready = m1_master_ready;
                 t_m1_slave_ready  = s3_slave_ready;
-                t_m1_slave_valid  = s3_slave_valid;
+                m1_slave_valid  = s3_slave_valid;
                 m1_rd_bus       = s3_rd_bus;
 
                 bb_mode         = 0;
@@ -170,10 +170,10 @@ module arbiter(
 
                 bb_mode         = m1_mode;
                 bb_wr_bus       = m1_wr_bus;
-                bb_master_valid = m1_master_valid;
+                bb_master_valid = m1_master_valid && m1_ack;
                 bb_master_ready = m1_master_ready;
                 t_m1_slave_ready  = bb_slave_ready;
-                t_m1_slave_valid  = bb_slave_valid;
+                m1_slave_valid  = bb_slave_valid;
                 m1_rd_bus       = bb_rd_bus;
             end
         endcase
@@ -181,15 +181,15 @@ module arbiter(
 
     always_ff @(posedge clk) begin : REG_LOGIC
         if (!rstn) begin
-            t_count   <= 0;
-            t_addr    <= 0;
-            slave     <= S1;
-            m1_ack    <= 0;
+            t_count     <= 0;
+            t_addr      <= 0;
+            slave_hold  <= S1;
+            m1_ack      <= 0;
         end else begin
             unique0 case (state)
                 IDLE: begin
-                    slave   <= S1;
-                    m1_ack <= 0;
+                    slave_hold  <= S1;
+                    ack_hold      <= 0;
                 end
                 ADDR_P1: if (m1_master_valid) begin
                     t_count <= t_count + 1;
@@ -200,8 +200,8 @@ module arbiter(
                     if (t_count == 2) begin
                         unique0 case (t_addr[1:0])
                             2'b11: begin
-                                slave   <= BB;
-                                m1_ack  <= 1;
+                                slave_hold   <= BB;
+                                ack_hold  <= 1;
                             end
                         endcase
                     end
@@ -213,12 +213,12 @@ module arbiter(
                     if (t_count == 4) begin
                         unique0 case (t_addr[3:0])
                             4'b0001: begin
-                                slave <= S2;
-                                m1_ack <= 1;
+                                slave_hold <= S2;
+                                ack_hold <= 1;
                             end
                             4'b0010: begin
-                                slave <= S3;
-                                m1_ack <= 1;
+                                slave_hold <= S3;
+                                ack_hold <= 1;
                             end
                         endcase
                     end
@@ -226,17 +226,14 @@ module arbiter(
                     t_addr  <= {t_addr[3:0], m1_wr_bus};
                 end
 
-                ACK_PRE: if (m1_master_valid) begin
-                    if (t_addr == 5'b00000) begin
-                        slave <= S1;
-                        m1_ack <= 1;
-                    end
+                ACK: if (m1_master_valid) begin
+                    t_count <= t_count + 1;
                 end
 
                 CLEAN: begin
                     t_count <= 0;
                     t_addr  <= 0;
-                    slave   <= S1;
+                    slave_hold   <= S1;
                 end
             endcase
         end
