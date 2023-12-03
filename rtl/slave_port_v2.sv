@@ -35,6 +35,7 @@ always_comb begin : NEXT_STATE_DECODER
         READ: next_state = SEND_PREL;
         SEND_PREL: next_state = SEND;
         SEND: next_state = ( (counter < DATA_WIDTH) ? SEND : IDLE );
+        default: next_state = IDLE;
     endcase
 end
 
