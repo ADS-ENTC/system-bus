@@ -153,143 +153,144 @@ module arbiter_tb;
         rstn        = 1;
         #20;
 
-        // testing Bus Bridge
-        @(negedge clk);
-        bus_bridge_addr_hold = $urandom_range(0, 2**14-1);
-        m_wr_data   = $urandom_range(0, 2**8-1);
-        m_addr      = {2'b11, bus_bridge_addr_hold};
-        m_mode      = 1;
-        m_start     = 1;
-
-        // $display("%b",m_addr);
-
-        @(negedge clk);
-        m_start     = 0;
-
-        #400;
-
-        @(negedge clk);
-        m_mode      = 0;
-        m_start     = 1;
-
-        while (!m_wr_en) begin
+        repeat (100) begin
+            // testing Bus Bridge
             @(negedge clk);
-        end
+            bus_bridge_addr_hold = $urandom_range(0, 2**14-1);
+            m_wr_data   = $urandom_range(0, 2**8-1);
+            m_addr      = {2'b11, bus_bridge_addr_hold};
+            m_mode      = 1;
+            m_start     = 1;
 
-        assert (m_wr_data == m_rd_data) 
-            $display("Bus Bridge Test passed!");
-        else 
-            $error("Bus Bridge Test failed!. expected %h, got %h", m_wr_data, m_rd_data);
+            // $display("%b",m_addr);
 
-        @(negedge clk);
-        m_start     = 0;
-
-        #400;
-
-
-       // testing Slave 2
-        @(negedge clk);
-        slave_2_addr_hold = $urandom_range(0, 2**12-1);
-        m_wr_data   = $urandom_range(0, 2**8-1);
-        m_addr      = {4'b0001, slave_2_addr_hold};
-        m_mode      = 1;
-        m_start     = 1;
-
-        // $display("%b",m_addr);
-
-        @(negedge clk);
-        m_start     = 0;
-
-        #400;
-
-        @(negedge clk);
-        m_mode      = 0;
-        m_start     = 1;
-
-        while (!m_wr_en) begin
             @(negedge clk);
-        end
+            m_start     = 0;
 
-        assert (m_wr_data == m_rd_data) 
-            $display("Slave 2 Test passed!");
-        else 
-            $error("Slave 2 Test failed!. expected %h, got %h", m_wr_data, m_rd_data);
+            #400;
 
-        @(negedge clk);
-        m_start     = 0;
-
-        #400;
-
-
-        // testing Slave 3
-        @(negedge clk);
-        slave_3_addr_hold = $urandom_range(0, 2**12-1);
-        m_wr_data   = $urandom_range(0, 2**8-1);
-        m_addr      = {4'b0010, slave_3_addr_hold};
-        m_mode      = 1;
-        m_start     = 1;
-
-        // $display("%b",m_addr);
-
-        @(negedge clk);
-        m_start     = 0;
-
-        #400;
-
-        @(negedge clk);
-        m_mode      = 0;
-        m_start     = 1;
-
-        while (!m_wr_en) begin
             @(negedge clk);
-        end
+            m_mode      = 0;
+            m_start     = 1;
 
-        assert (m_wr_data == m_rd_data) 
-            $display("Slave 3 Test passed!");
-        else 
-            $error("Slave 3 Test failed!. expected %h, got %h", m_wr_data, m_rd_data);
+            while (!m_wr_en) begin
+                @(negedge clk);
+            end
 
-        @(negedge clk);
-        m_start     = 0;
+            assert (m_wr_data == m_rd_data) 
+                $display("Bus Bridge Test passed!");
+            else 
+                $error("Bus Bridge Test failed!. expected %h, got %h", m_wr_data, m_rd_data);
 
-        #400;
-
-
-        // testing Slave 1
-        @(negedge clk);
-        slave_1_addr_hold = $urandom_range(0, 2**11-1);
-        m_wr_data   = $urandom_range(0, 2**8-1);
-        m_addr      = {5'b00000, slave_1_addr_hold};
-        m_mode      = 1;
-        m_start     = 1;
-
-        // $display("%b",m_addr);
-
-        @(negedge clk);
-        m_start     = 0;
-
-        #400;
-
-        @(negedge clk);
-        m_mode      = 0;
-        m_start     = 1;
-
-        while (!m_wr_en) begin
             @(negedge clk);
+            m_start     = 0;
+
+            #400;
+
+
+        // testing Slave 2
+            @(negedge clk);
+            slave_2_addr_hold = $urandom_range(0, 2**12-1);
+            m_wr_data   = $urandom_range(0, 2**8-1);
+            m_addr      = {4'b0001, slave_2_addr_hold};
+            m_mode      = 1;
+            m_start     = 1;
+
+            // $display("%b",m_addr);
+
+            @(negedge clk);
+            m_start     = 0;
+
+            #400;
+
+            @(negedge clk);
+            m_mode      = 0;
+            m_start     = 1;
+
+            while (!m_wr_en) begin
+                @(negedge clk);
+            end
+
+            assert (m_wr_data == m_rd_data) 
+                $display("Slave 2 Test passed!");
+            else 
+                $error("Slave 2 Test failed!. expected %h, got %h", m_wr_data, m_rd_data);
+
+            @(negedge clk);
+            m_start     = 0;
+
+            #400;
+
+
+            // testing Slave 3
+            @(negedge clk);
+            slave_3_addr_hold = $urandom_range(0, 2**12-1);
+            m_wr_data   = $urandom_range(0, 2**8-1);
+            m_addr      = {4'b0010, slave_3_addr_hold};
+            m_mode      = 1;
+            m_start     = 1;
+
+            // $display("%b",m_addr);
+
+            @(negedge clk);
+            m_start     = 0;
+
+            #400;
+
+            @(negedge clk);
+            m_mode      = 0;
+            m_start     = 1;
+
+            while (!m_wr_en) begin
+                @(negedge clk);
+            end
+
+            assert (m_wr_data == m_rd_data) 
+                $display("Slave 3 Test passed!");
+            else 
+                $error("Slave 3 Test failed!. expected %h, got %h", m_wr_data, m_rd_data);
+
+            @(negedge clk);
+            m_start     = 0;
+
+            #400;
+
+
+            // testing Slave 1
+            @(negedge clk);
+            slave_1_addr_hold = $urandom_range(0, 2**11-1);
+            m_wr_data   = $urandom_range(0, 2**8-1);
+            m_addr      = {5'b00000, slave_1_addr_hold};
+            m_mode      = 1;
+            m_start     = 1;
+
+            // $display("%b",m_addr);
+
+            @(negedge clk);
+            m_start     = 0;
+
+            #400;
+
+            @(negedge clk);
+            m_mode      = 0;
+            m_start     = 1;
+
+            while (!m_wr_en) begin
+                @(negedge clk);
+            end
+
+            assert (m_wr_data == m_rd_data) 
+                $display("Slave 1 Test passed!");
+            else 
+                $error("Slave 1 Test failed!. expected %h, got %h", m_wr_data, m_rd_data);
+
+            @(negedge clk);
+            m_start     = 0;
+
+            #400;
         end
-
-        assert (m_wr_data == m_rd_data) 
-            $display("Slave 1 Test passed!");
-        else 
-            $error("Slave 1 Test failed!. expected %h, got %h", m_wr_data, m_rd_data);
-
-        @(negedge clk);
-        m_start     = 0;
-
-        #400;
-
-        $finish;
     end
 
-
+    $finish;
+    
 endmodule
