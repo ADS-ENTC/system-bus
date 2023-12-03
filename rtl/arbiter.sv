@@ -76,28 +76,28 @@ module arbiter(
         unique0 case (t_addr[4:3])
             2'b11: begin
                 slave = BB;
-                m1_ack = 1;
+                m1_ack = 1 && t_count > 1;
             end
 
             2'b00: begin
                 unique0 case (t_addr[2:1])
                     2'b01: begin
                         slave = S2;
-                        m1_ack = 1;
+                        m1_ack = 1 && t_count > 3;
                     end
                     2'b10: begin
                         slave = S3;
-                        m1_ack = 1;
+                        m1_ack = 1 && t_count > 3;
                     end
                     2'b00: begin
                         unique0 case (t_addr[0])
                             1'b0: begin
                                 slave = S1;
-                                m1_ack = 1;
+                                m1_ack = 1 && t_count > 4;
                             end
                             1'b1: begin
                                 slave = S1;
-                                m1_ack = 0;
+                                m1_ack = 0 && t_count > 3;
                             end
                         endcase
                     end
