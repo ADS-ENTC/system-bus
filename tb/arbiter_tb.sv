@@ -289,8 +289,8 @@ module arbiter_tb;
 
             #400;
         end
+
+        $finish;
     end
 
-    $finish;
-    
 endmodule
