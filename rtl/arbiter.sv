@@ -82,11 +82,11 @@ module arbiter(
             2'b00: begin
                 unique0 case (t_addr[2:1])
                     2'b01: begin
-                        slave = S1;
+                        slave = S2;
                         m1_ack = 1;
                     end
                     2'b10: begin
-                        slave = S2;
+                        slave = S3;
                         m1_ack = 1;
                     end
                     2'b00: begin
