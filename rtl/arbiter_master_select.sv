@@ -21,6 +21,7 @@ always_comb begin : NEXT_STATE_DECODER
         REQ1: next_state = ( (BREQ1 == 0) ? IDLE : REQ1 );
         REQ2: next_state = ( (BREQ2 == 0) ? IDLE : REQ2 );
         REQ12: next_state = ( (BREQ1 == 0 || BREQ2 == 0) ? IDLE : REQ12 );
+        default: next_state = IDLE;
     endcase
 end
 
@@ -31,8 +32,8 @@ always_ff@(posedge clk) begin : STATE_SEQUENCER
 end
 
 // output decoder
-assign bus_owner[0] = BGRANT1;
-assign bus_owner[1] = BGRANT2;
+assign BGRANT1 =  bus_owner[0];
+assign BGRANT2 = bus_owner[1];
 assign bus_priority = 0;
 
 always_ff@(posedge clk) begin : OUTPUT_DECODER
