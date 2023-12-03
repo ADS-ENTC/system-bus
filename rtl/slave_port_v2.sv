@@ -29,8 +29,8 @@ assign slave_valid = port_valid;
 always_comb begin : NEXT_STATE_DECODER
     unique0 case (state)
         IDLE: next_state = ( ( master_valid == 1 ) ? ADDR_IN : IDLE );
-        ADDR_IN: next_state = ( (counter < ADDR_WIDTH-1) ? ( (port_ready == 1 && master_valid == 1 ) ? ADDR_IN : IDLE ) : ( (mode == 1) ? DATA_IN : READ ) );
-        DATA_IN: next_state = ( (counter < ADDR_WIDTH+DATA_WIDTH) ? ( ( port_ready == 1 && master_valid == 1 ) ? DATA_IN : IDLE ) : WRITE );
+        ADDR_IN: next_state = ( (counter < ADDR_WIDTH-1) ? ADDR_IN : ( (mode == 1) ? DATA_IN : READ ) );
+        DATA_IN: next_state = ( (counter < ADDR_WIDTH+DATA_WIDTH) ? DATA_IN : WRITE );
         WRITE: next_state = IDLE;
         READ: next_state = SEND_PREL;
         SEND_PREL: next_state = SEND;
@@ -58,13 +58,17 @@ always_ff@(posedge clk) begin : OUTPUT_DECODER
         end
 
         ADDR_IN: begin
-            addr_in[ADDR_WIDTH-1-counter] <= wr_bus;
-            counter <= counter + 1;
+            if (master_valid) begin
+                addr_in[ADDR_WIDTH-1-counter] <= wr_bus;
+                counter <= counter + 1;
+            end
         end
 
         DATA_IN: begin  
-            data_in[DATA_WIDTH-1+ADDR_WIDTH-counter] <= wr_bus;
-            counter <= counter + 1;
+            if (master_valid) begin
+                data_in[DATA_WIDTH-1+ADDR_WIDTH-counter] <= wr_bus;
+                counter <= counter + 1;
+            end
         end
 
         WRITE: begin
