@@ -10,6 +10,8 @@ module master_port (
     input   logic       slave_ready,
     output  logic       master_ready,
     input   logic       slave_valid,
+    output  logic       breq,
+    input   logic       bgrant,
     // connections to master
     input   logic[7:0]  m_wr_data,
     output  logic[7:0]  m_rd_data,
@@ -18,7 +20,7 @@ module master_port (
     output  logic       m_wr_en,
     input   logic       m_start
 );
-    enum logic[3:0] {IDLE, FETCH, ADDR_1, ADDR_2, WR_DATA, RD_DATA, CLEAN} state, next_state;
+    enum logic[3:0] {IDLE, REQ, FETCH, ADDR_1, ADDR_2, WR_DATA, RD_DATA, CLEAN} state, next_state;
     
     logic[3:0]  t_count;
     logic[7:0]  t_wr_data;
@@ -28,7 +30,8 @@ module master_port (
 
     always_comb begin : NEXT_STATE_LOGIC
         unique case (state)
-            IDLE:               next_state = m_start ? FETCH : IDLE;
+            IDLE:               next_state = m_start ? REQ : IDLE;
+            REQ:                next_state = bgrant ? FETCH : REQ;
             FETCH:              next_state = ADDR_1;
             ADDR_1:             next_state = (t_count == 5 & slave_ready) ? (ack ? ADDR_2 : CLEAN) : ADDR_1;
             ADDR_2:             next_state = (t_count == 15 & slave_ready) ? (t_mode ? WR_DATA : RD_DATA) : ADDR_2;
@@ -50,6 +53,7 @@ module master_port (
         master_ready = state == RD_DATA;
         m_rd_data = t_rd_data;
         m_wr_en = state == CLEAN & t_count == 8;
+        breq = state != IDLE;
     end
 
     always_ff @(posedge clk) begin : REG_LOGIC
