@@ -9,7 +9,7 @@ localparam STATE_N_BITS = $clog2(NUM_STATES);
 
 // internal signals
 logic [2:0] bus_owner;
-logic bus_priority;
+localparam bus_priority = 0;
 
 // states
 enum logic [STATE_N_BITS-1:0] {IDLE, REQ1, REQ2, REQ12} state, next_state;
@@ -34,7 +34,6 @@ end
 // output decoder
 assign BGRANT1 =  bus_owner[0];
 assign BGRANT2 = bus_owner[1];
-assign bus_priority = 0;
 
 always_ff@(posedge clk) begin : OUTPUT_DECODER
     unique0 case (state)
