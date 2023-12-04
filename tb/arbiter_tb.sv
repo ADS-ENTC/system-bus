@@ -203,8 +203,7 @@ module arbiter_tb;
         #20;
         rstn        = 1;
         #20;
-
-        slave_split = 0;
+        
         m2_start = 0;
 
         repeat (100) begin
