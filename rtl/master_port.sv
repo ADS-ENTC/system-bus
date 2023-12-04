@@ -22,7 +22,7 @@ module master_port (
     output  logic       m_wr_en,
     input   logic       m_start
 );
-    enum logic[3:0] {IDLE, REQ, FETCH, ADDR_1, ADDR_2, WR_DATA, RD_DATA, CLEAN, SPLIT} state, next_state;
+    enum logic[3:0] {IDLE, REQ, FETCH, ADDR_1, ADDR_2, WR_DATA, RD_DATA, CLEAN, SPLIT, TIMEOUT_STATE} state, next_state;
     localparam TIMEOUT = 64;
     
     logic[3:0]  t_count;
@@ -37,7 +37,8 @@ module master_port (
             IDLE:               next_state = m_start ? REQ : IDLE;
             REQ:                next_state = bgrant ? FETCH : REQ;
             FETCH:              next_state = ADDR_1;
-            ADDR_1:             next_state = timeout != TIMEOUT - 1 ? ((t_count == 5 & slave_ready) ? (ack ? ADDR_2 : CLEAN) : ADDR_1) : REQ;
+            ADDR_1:             next_state = timeout != TIMEOUT - 1 ? ((t_count == 5 & slave_ready) ? (ack ? ADDR_2 : CLEAN) : ADDR_1) : TIMEOUT_STATE;
+            TIMEOUT_STATE:      next_state = REQ;
             ADDR_2:             next_state = (t_count == 15 & slave_ready) ? (t_mode ? WR_DATA : RD_DATA) : ADDR_2;
             WR_DATA:            next_state = (t_count == 7  & slave_ready) ? IDLE : WR_DATA;
             RD_DATA:            next_state = split == 0 ? ((t_count == 7 & slave_valid) ? CLEAN : RD_DATA) : SPLIT;
@@ -58,7 +59,7 @@ module master_port (
         master_ready = state == RD_DATA;
         m_rd_data = t_rd_data;
         m_wr_en = state == CLEAN & t_count == 8;
-        breq = state != IDLE;
+        breq = state != IDLE && state != TIMEOUT_STATE;
     end
 
     always_ff @(posedge clk) begin : REG_LOGIC
