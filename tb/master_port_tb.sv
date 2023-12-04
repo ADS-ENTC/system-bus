@@ -12,6 +12,9 @@ module master_port_tb;
     logic       slave_ready;
     logic       master_ready;
     logic       slave_valid;
+    logic       breq;
+    logic       bgrant;
+    logic       split;
 
     logic[7:0]  m_wr_data;
     logic[7:0]  m_rd_data;
@@ -21,8 +24,6 @@ module master_port_tb;
     logic       m_start;
 
     master_port mp (.*);
-
-
 
     initial begin
         clk = 0;
@@ -40,43 +41,47 @@ module master_port_tb;
         m_addr      = 16'habcd;
         m_mode      = 1;
         m_start     = 1;
-        slave_ready = 1;
+        slave_ready = 0;
         ack         = 0;
+        bgrant      = 1;
+        split       = 1;
 
         @(negedge clk);
         m_start     = 0;
         ack         = 1;
 
+        #800;
+
+        slave_ready = 1;
+        #1000;
+
+        @(negedge clk);
+        m_mode      = 0;
+        m_start     = 1;
+        slave_valid = 0;
+        rd_bus      = 1;
+
+        @(negedge clk);
+        m_start     = 0;
+        rd_bus      = 0;
+
         #400;
+        split       = 0;
+        slave_valid = 1;
 
+        @(negedge clk);
+        rd_bus      = 1;
 
-        // @(negedge clk);
-        // m_mode      = 0;
-        // m_start     = 1;
-        // slave_valid = 1;
-        // rd_bus      = 1;
+        @(negedge clk);
+        rd_bus      = 1;
 
-        // @(negedge clk);
-        // m_start     = 0;
-        // rd_bus      = 0;
+        @(negedge clk);
+        rd_bus      = 0;
 
+        @(negedge clk);
+        rd_bus      = 1;
 
-        
-        // #200;
-
-        // @(negedge clk);
-        // rd_bus      = 1;
-
-        // @(negedge clk);
-        // rd_bus      = 1;
-
-        // @(negedge clk);
-        // rd_bus      = 0;
-
-        // @(negedge clk);
-        // rd_bus      = 1;
-
-        // #400;
+        #1000;
 
         $finish;
     end
