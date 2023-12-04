@@ -62,13 +62,16 @@ module arbiter#(
     output  logic       bb_master_ready,
     input   logic       bb_rd_bus,
     input   logic       bb_slave_ready,
-    input   logic       bb_slave_valid
+    input   logic       bb_slave_valid,
 
-    
+    input   logic       slave_split,
+    output  logic       m1_split,
+    output  logic       m2_split  
 );  
 
-    enum logic[2:0] {IDLE, ADDR, CONNECTED, CLEAN, REQ1, REQ2, REQ12} state, next_state;
+    enum logic[2:0] {IDLE, ADDR, CONNECTED, CLEAN, REQ1, REQ2, REQ12, SPLIT} state, next_state;
     enum logic[1:0] {S1, S2, S3, BB} slave;
+    enum logic[1:0] {NONE, M1, M2} split_owner;
 
     logic[4:0]  t_addr;
     logic[4:0]  t_count;
@@ -87,12 +90,20 @@ module arbiter#(
 
     always_comb begin : NEXT_STATE_LOGIC
         unique case (state)
-            IDLE:               next_state = ( (m1_breq == 0) ? ( (m2_breq == 0) ? IDLE : REQ2 ) : ( (m2_breq == 0) ? REQ1 : REQ12 ) );
+            IDLE:               begin
+                                    if (split_owner == NONE)
+                                        next_state = ( (m1_breq == 0) ? ( (m2_breq == 0) ? IDLE : REQ2 ) : ( (m2_breq == 0) ? REQ1 : REQ12 ) );
+                                    else if (slave_split == 0)
+                                        next_state = CONNECTED;
+                                    else
+                                        next_state = ( (m1_breq == 0 || split_owner == M1) ? ( (m2_breq == 0 || split_owner == M2) ? IDLE : REQ2 ) : ( (m2_breq == 0 || split_owner == M2) ? REQ1 : REQ12 ) );
+                                end
             REQ1:               next_state = ( (m1_breq == 0) ? IDLE : (m1_master_valid) ? ADDR : REQ1 );
             REQ2:               next_state = ( (m2_breq == 0) ? IDLE : (m2_master_valid) ? ADDR : REQ2 );
             REQ12:              next_state = ( (m1_breq == 0 || m2_breq == 0) ? IDLE : (m1_master_valid) ? ADDR : REQ12 );
             ADDR:               next_state = (t_count == 5 && master_valid) ? (ack ? CONNECTED : CLEAN) : ADDR;
-            CONNECTED:          next_state = (breq == 0) ? CLEAN : CONNECTED;
+            CONNECTED:          next_state = (breq == 0) ? CLEAN : (slave_split ? SPLIT : CONNECTED);
+            SPLIT:              next_state = IDLE;
             CLEAN:              next_state = IDLE;
             default:            next_state = IDLE;
         endcase
@@ -105,6 +116,8 @@ module arbiter#(
     assign slave_ready = ack ? t_slave_ready : state == ADDR;
     assign m1_bgrant = !bus_owner;
     assign m2_bgrant = bus_owner;
+    assign m1_split = (split_owner == M1 ? slave_split : 0);
+    assign m2_split = (split_owner == M2 ? slave_split : 0);
 
     always_comb begin
         if (bus_priority == 0) begin
@@ -328,8 +341,14 @@ module arbiter#(
             t_count     <= 0;
             t_addr      <= 0;
             bus_owner   <= bus_priority;
+            split_owner <= NONE;
         end else begin
             unique0 case (state)
+                IDLE: begin
+                    if (split_owner != NONE && slave_split == 0)
+                        bus_owner <= (split_owner == M1 ? 0 : 1);
+                end
+                
                 REQ1: begin
                     bus_owner <= 0;
                 end
@@ -351,9 +370,15 @@ module arbiter#(
                     t_count <= t_count + 1;
                 end
 
+                SPLIT: begin
+                    split_owner <= (bus_owner == 0) ? M1 : M2;
+                end
+
                 CLEAN: begin
                     t_count <= 0;
                     t_addr  <= 0;
+
+                    if (slave_split == 0) split_owner <= NONE;
                 end
             endcase
         end
