@@ -345,8 +345,10 @@ module arbiter#(
         end else begin
             unique0 case (state)
                 IDLE: begin
-                    if (split_owner != NONE && slave_split == 0)
+                    if (split_owner != NONE && slave_split == 0) begin
                         bus_owner <= (split_owner == M1 ? 0 : 1);
+                        t_addr[4:1] <= 4'b0001;
+                    end
                 end
                 
                 REQ1: begin
@@ -378,7 +380,8 @@ module arbiter#(
                     t_count <= 0;
                     t_addr  <= 0;
 
-                    if (slave_split == 0) split_owner <= NONE;
+                    if (bus_owner == 0 && split_owner == M1) split_owner <= NONE;
+                    else if (bus_owner == 1 && split_owner == M2) split_owner <= NONE;
                 end
             endcase
         end
