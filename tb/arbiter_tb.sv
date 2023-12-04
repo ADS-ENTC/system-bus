@@ -15,8 +15,9 @@ module arbiter_tb;
     logic       m1_slave_valid;
     logic       m1_breq;
     logic       m1_bgrant;
+    logic       m1_split;
 
-    // connections to master 1;
+    // connections to master 2;
     logic       m2_mode;
     logic       m2_rd_bus;
     logic       m2_wr_bus;
@@ -27,6 +28,7 @@ module arbiter_tb;
     logic       m2_slave_valid;
     logic       m2_breq;
     logic       m2_bgrant;
+    logic       m2_split;
 
     // connections to slave 1;
     logic       s1_mode;
@@ -45,6 +47,7 @@ module arbiter_tb;
     logic       s2_rd_bus;
     logic       s2_slave_ready;
     logic       s2_slave_valid;
+    logic       slave_split;
 
     // connections to slave 3;
     logic       s3_mode;
@@ -98,7 +101,8 @@ module arbiter_tb;
         .m_wr_en(m1_wr_en),
         .m_start(m1_start),
         .breq(m1_breq),
-        .bgrant(m1_bgrant)
+        .bgrant(m1_bgrant),
+        .split(m1_split)
     );
 
     master_port mp_2 (
@@ -119,7 +123,8 @@ module arbiter_tb;
         .m_wr_en(m2_wr_en),
         .m_start(m2_start),
         .breq(m2_breq),
-        .bgrant(m2_bgrant)
+        .bgrant(m2_bgrant),
+        .split(m2_split)
     );
 
     slave_port_v2  #(
@@ -150,7 +155,8 @@ module arbiter_tb;
         .master_valid(s2_master_valid),
         .slave_ready(s2_slave_ready),
         .master_ready(s2_master_ready),
-        .slave_valid(s2_slave_valid)
+        .slave_valid(s2_slave_valid),
+        .split(slave_split)
     );
 
     slave_port_v2  #(
@@ -198,6 +204,7 @@ module arbiter_tb;
         rstn        = 1;
         #20;
 
+        slave_split = 0;
         m2_start = 0;
 
         repeat (100) begin
