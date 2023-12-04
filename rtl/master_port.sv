@@ -21,8 +21,10 @@ module master_port (
     input   logic       m_start
 );
     enum logic[3:0] {IDLE, REQ, FETCH, ADDR_1, ADDR_2, WR_DATA, RD_DATA, CLEAN} state, next_state;
+    localparam TIMEOUT = 64;
     
     logic[3:0]  t_count;
+    logic[$clog2(TIMEOUT)-1:0] timeout;
     logic[7:0]  t_wr_data;
     logic[7:0]  t_rd_data;
     logic[15:0] t_addr;
@@ -33,7 +35,7 @@ module master_port (
             IDLE:               next_state = m_start ? REQ : IDLE;
             REQ:                next_state = bgrant ? FETCH : REQ;
             FETCH:              next_state = ADDR_1;
-            ADDR_1:             next_state = (t_count == 5 & slave_ready) ? (ack ? ADDR_2 : CLEAN) : ADDR_1;
+            ADDR_1:             next_state = timeout != TIMEOUT - 1 ? ((t_count == 5 & slave_ready) ? (ack ? ADDR_2 : CLEAN) : ADDR_1) : REQ;
             ADDR_2:             next_state = (t_count == 15 & slave_ready) ? (t_mode ? WR_DATA : RD_DATA) : ADDR_2;
             WR_DATA:            next_state = (t_count == 7  & slave_ready) ? IDLE : WR_DATA;
             RD_DATA:            next_state = (t_count == 7 & slave_valid) ? CLEAN : RD_DATA;
@@ -63,6 +65,7 @@ module master_port (
             t_rd_data <= 0;
             t_addr    <= 0;
             t_mode    <= 0;
+            timeout   <= 0;
         end else begin
             unique0 case (state)
                 FETCH: begin
@@ -70,12 +73,20 @@ module master_port (
                     t_rd_data <= m_rd_data;
                     t_addr    <= m_addr;
                     t_mode    <= m_mode;
-                    t_count   <= 0;
                 end
 
-                ADDR_1: if(slave_ready) begin
-                    t_addr <= t_addr << 1;
-                    t_count <= t_count + 1;
+                REQ: begin
+                    timeout <= 0;
+                    t_count <= 0;
+                end
+
+                ADDR_1:begin
+                    timeout <= timeout + 1;
+
+                    if(slave_ready) begin
+                        t_addr <= t_addr << 1;
+                        t_count <= t_count + 1;
+                    end
                 end
 
                 ADDR_2: if(slave_ready) begin
@@ -99,6 +110,7 @@ module master_port (
                     t_rd_data <= 0;
                     t_addr    <= 0;
                     t_mode    <= 0;
+                    timeout   <= 0;
                 end
             endcase
         end
