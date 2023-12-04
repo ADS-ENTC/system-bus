@@ -12,6 +12,8 @@ module master_port (
     input   logic       slave_valid,
     output  logic       breq,
     input   logic       bgrant,
+    input   logic       split,
+
     // connections to master
     input   logic[7:0]  m_wr_data,
     output  logic[7:0]  m_rd_data,
@@ -20,7 +22,7 @@ module master_port (
     output  logic       m_wr_en,
     input   logic       m_start
 );
-    enum logic[3:0] {IDLE, REQ, FETCH, ADDR_1, ADDR_2, WR_DATA, RD_DATA, CLEAN} state, next_state;
+    enum logic[3:0] {IDLE, REQ, FETCH, ADDR_1, ADDR_2, WR_DATA, RD_DATA, CLEAN, SPLIT} state, next_state;
     localparam TIMEOUT = 64;
     
     logic[3:0]  t_count;
@@ -38,7 +40,8 @@ module master_port (
             ADDR_1:             next_state = timeout != TIMEOUT - 1 ? ((t_count == 5 & slave_ready) ? (ack ? ADDR_2 : CLEAN) : ADDR_1) : REQ;
             ADDR_2:             next_state = (t_count == 15 & slave_ready) ? (t_mode ? WR_DATA : RD_DATA) : ADDR_2;
             WR_DATA:            next_state = (t_count == 7  & slave_ready) ? IDLE : WR_DATA;
-            RD_DATA:            next_state = (t_count == 7 & slave_valid) ? CLEAN : RD_DATA;
+            RD_DATA:            next_state = split == 0 ? ((t_count == 7 & slave_valid) ? CLEAN : RD_DATA) : SPLIT;
+            SPLIT:              next_state = split ? SPLIT : RD_DATA;
             CLEAN:              next_state = IDLE;
             default:            next_state = IDLE;
         endcase
