@@ -139,7 +139,8 @@ module arbiter_tb;
 
     slave_port_v2  #(
         .ADDR_WIDTH(12),
-        .DATA_WIDTH(8)
+        .DATA_WIDTH(8),
+        .SPLIT_EN(1)
     )sp2(
         .clk(clk),
         .rstn(rstn),
