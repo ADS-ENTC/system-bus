@@ -10,7 +10,7 @@ module demo (
     output logic m2
 );
   // Module implementation goes here
-bcd7seg seg0(.bcd(keys), .seg(hex0));
+seg seg0(.bcd(keys), .hex(hex0));
 
 
   
