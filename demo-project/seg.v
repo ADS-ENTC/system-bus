@@ -16,6 +16,9 @@ begin
 	7:hex=7'B1111000;
 	8:hex=7'B0000000;
 	9:hex=7'B0010000;
+	10:hex=7'B0001111;
+	11:hex=7'B0001001;
+	12:hex=7'B0111111;
 	default:hex=7'B1000000;
 	endcase
 end
