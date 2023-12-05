@@ -74,7 +74,6 @@ module master_port (
             unique case (state)
                 FETCH: begin
                     t_wr_data <= m_wr_data;
-                    t_rd_data <= m_rd_data;
                     t_addr    <= m_addr;
                     t_mode    <= m_mode;
                 end
