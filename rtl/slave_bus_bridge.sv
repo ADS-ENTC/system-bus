@@ -5,13 +5,13 @@ module slave_bus_bridge#(
 )(
     input logic mode, wr_bus, master_valid, master_ready, rstn, clk, valid_in,
     input logic [DATA_WIDTH-1:0]uart_register_in,
-    output logic [1+ADDR_WIDTH+16-1:0]uart_register_out,
+    output logic [1+16+DATA_WIDTH-1:0]uart_register_out,
     output logic rd_bus, slave_ready, slave_valid, split, valid_out
 );
 
 // local parameters
 localparam COUNTER_LENGTH = $clog2(ADDR_WIDTH+DATA_WIDTH);
-localparam NUM_STATES = 7;
+localparam NUM_STATES = 8;
 localparam STATE_N_BITS = $clog2(NUM_STATES);
 
 // internal signals
@@ -21,7 +21,7 @@ logic [DATA_WIDTH-1:0]data_in;
 logic port_ready, port_valid;
 
 // definition of states
-enum logic[STATE_N_BITS-1:0] {IDLE, ADDR_IN, DATA_IN, WRITE, READ, SEND, SPLIT} state, next_state;
+enum logic[STATE_N_BITS-1:0] {IDLE, ADDR_IN, DATA_IN, WRITE, READ, SEND, SPLIT, SEND_RD_ADDR} state, next_state;
 
 assign slave_ready = port_ready;
 assign slave_valid = port_valid;
@@ -72,12 +72,12 @@ always_ff@(posedge clk) begin : OUTPUT_DECODER
         end
 
         WRITE: begin
-            uart_register_out <= {mode, addr_in, data_in};
+            uart_register_out <= {mode, 2'b00, addr_in, data_in};
             valid_out <= 1;
         end
 
         SEND_RD_ADDR: begin
-            uart_register_out <= {mode, addr_in, 0};
+            uart_register_out <= {mode, 2'b00, addr_in, 8'd0};
             valid_out <= 1;
         end
 
