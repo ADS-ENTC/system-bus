@@ -70,6 +70,11 @@ module top(
     logic       s1_slave_ready;
     logic       s1_slave_valid;
 
+    logic[7:0]  s1_ram_in;
+    logic[7:0]  s1_ram_out;
+    logic[7:0]  s1_ram_addr_out;
+    logic       s1_ram_wr_en;
+
     // slave 2;
     logic       s2_mode;
     logic       s2_wr_bus;
@@ -133,6 +138,10 @@ module top(
         .rd_bus(s1_rd_bus),
         .slave_ready(s1_slave_ready),
         .slave_valid(s1_slave_valid),
+        .ram_in(s1_ram_in),
+        .ram_out(s1_ram_out),
+        .ram_addr_out(s1_ram_addr_out),
+        .ram_wr_en(s1_ram_wr_en)
     );
 
     master_1_ram m1_ram (
@@ -141,6 +150,14 @@ module top(
         .data(m1_rd_data),
         .wren(m1_wr_en),
         .q(m1_wr_data)
+    );
+
+    slave_1_ram s1_ram (
+        .address(s1_ram_addr_out),
+        .clock(clk),
+        .data(s1_ram_out),
+        .wren(s1_ram_wr_en),
+	    .q(s1_ram_in)
     );
 
     arbiter arb(.*);
