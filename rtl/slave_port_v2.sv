@@ -5,7 +5,11 @@ module slave_port_v2#(
     parameter SPLIT_EN = 0
 )(
     input logic mode, wr_bus, master_valid, master_ready, rstn, clk,
-    output logic rd_bus, slave_ready, slave_valid, split
+    output logic rd_bus, slave_ready, slave_valid, split,
+    input   logic[DATA_WIDTH-1:0]   ram_in,
+    output  logic[DATA_WIDTH-1:0]   ram_out,
+    output  logic[ADDR_WIDTH-1:0]   ram_addr_out,
+    output  logic                   ram_wr_en
 );
 
 // local parameters
@@ -21,14 +25,14 @@ logic [DATA_WIDTH-1:0]data_in;
 logic port_ready, port_valid;
 logic [READ_COUNTER_LENGTH:0]read_counter;
 
-// dummy memory
-logic [DATA_WIDTH-1:0]ram[63:0];
-
 // definition of states
 enum logic[STATE_N_BITS-1:0] {IDLE, ADDR_IN, DATA_IN, WRITE, READ, SEND, SPLIT} state, next_state;
 
 assign slave_ready = port_ready;
 assign slave_valid = port_valid;
+assign ram_wr_en = (state == WRITE);
+assign ram_addr_out = addr_in;
+assign ram_out = data_in;
 
 always_comb begin : NEXT_STATE_DECODER
     unique case (state)
@@ -53,7 +57,7 @@ end
 assign port_ready = (state == ADDR_IN) | (state == DATA_IN);
 assign port_valid = (state == SEND);
 assign split = (state == SPLIT);
-assign rd_bus = ram[addr_in[5:0]][DATA_WIDTH-1-counter];
+assign rd_bus = ram_in[DATA_WIDTH-1-counter];
 
 always_ff@(posedge clk) begin : OUTPUT_DECODER
     unique case (state)
@@ -72,10 +76,6 @@ always_ff@(posedge clk) begin : OUTPUT_DECODER
         DATA_IN: begin  
             data_in[DATA_WIDTH-1+ADDR_WIDTH-counter] <= wr_bus;
             counter <= counter + 1;
-        end
-
-        WRITE: begin
-            ram[addr_in[5:0]] <= data_in;
         end
 
         READ: begin
