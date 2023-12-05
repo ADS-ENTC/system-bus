@@ -31,7 +31,7 @@ assign slave_ready = port_ready;
 assign slave_valid = port_valid;
 
 always_comb begin : NEXT_STATE_DECODER
-    unique0 case (state)
+    unique case (state)
         IDLE: next_state = ( ( master_valid == 1 ) ? ADDR_IN : IDLE );
         ADDR_IN: next_state = ( (counter < ADDR_WIDTH-1) ? ( (port_ready == 1 && master_valid == 1 ) ? ADDR_IN : IDLE ) : ( (mode == 1) ? DATA_IN : READ ) );
         DATA_IN: next_state = ( (counter < ADDR_WIDTH+DATA_WIDTH) ? ( ( port_ready == 1 && master_valid == 1 ) ? DATA_IN : IDLE ) : WRITE );
@@ -56,7 +56,7 @@ assign split = (state == SPLIT);
 assign rd_bus = ram[addr_in[5:0]][DATA_WIDTH-1-counter];
 
 always_ff@(posedge clk) begin : OUTPUT_DECODER
-    unique0 case (state)
+    unique case (state)
         IDLE: begin
             counter <= 0;
             addr_in <= 0;

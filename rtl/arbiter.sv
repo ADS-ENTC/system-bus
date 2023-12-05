@@ -121,7 +121,7 @@ module arbiter#(
 
     always_comb begin
         if (bus_priority == 0) begin
-            unique0 case (bus_owner)
+            unique case (bus_owner)
                 1'b1: begin
                     mode           = m2_mode;
                     m2_rd_bus      = rd_bus;
@@ -157,7 +157,7 @@ module arbiter#(
                 end
             endcase
         end else begin
-            unique0 case (bus_owner)
+            unique case (bus_owner)
                 1'b0: begin
                     mode           = m1_mode;
                     m1_rd_bus      = rd_bus;
@@ -196,14 +196,14 @@ module arbiter#(
     end
 
     always_comb begin : OUTPUT_LOGIC
-        unique0 case (t_addr[4:3])
+        unique case (t_addr[4:3])
             2'b11: begin
                 slave = BB;
                 ack = t_count > 1;
             end
 
             2'b00: begin
-                unique0 case (t_addr[2:1])
+                unique case (t_addr[2:1])
                     2'b01: begin
                         slave = S2;
                         ack = t_count > 3;
@@ -213,7 +213,7 @@ module arbiter#(
                         ack = t_count > 3;
                     end
                     2'b00: begin
-                        unique0 case (t_addr[0])
+                        unique case (t_addr[0])
                             1'b0: begin
                                 slave = S1;
                                 ack = t_count > 4;
@@ -343,7 +343,7 @@ module arbiter#(
             bus_owner   <= bus_priority;
             split_owner <= NONE;
         end else begin
-            unique0 case (state)
+            unique case (state)
                 IDLE: begin
                     if (split_owner != NONE && slave_split == 0) begin
                         bus_owner <= (split_owner == M1 ? 0 : 1);

@@ -71,7 +71,7 @@ module master_port (
             t_mode    <= 0;
             timeout   <= 0;
         end else begin
-            unique0 case (state)
+            unique case (state)
                 FETCH: begin
                     t_wr_data <= m_wr_data;
                     t_rd_data <= m_rd_data;
