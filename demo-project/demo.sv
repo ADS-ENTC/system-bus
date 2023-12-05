@@ -17,13 +17,14 @@ logic [3:0] tmp;
 logic [3:0] seg0_bcd;
 logic [3:0] seg1_bcd;
 logic [3:0] seg2_bcd;
+logic [3:0] seg3_bcd;
 
 wire m1_select=sws[0];
 wire m1_mode=sws[1];
 wire m2_select=sws[2];
 wire m2_mode=sws[3];
 wire keys = ~keysn;
-wire [15:0] addr={sws[16:4],4'b0000};
+wire [15:0] addr={sws[15:4],4'b0010};
 
 // logic m1_select=sws[0];
 // logic m1_mode=sws[1];
@@ -35,6 +36,7 @@ wire [15:0] addr={sws[16:4],4'b0000};
 seg seg0(.bcd(seg0_bcd), .hex(hex0));
 seg seg1(.bcd(seg1_bcd), .hex(hex1));
 seg seg2(.bcd(seg2_bcd), .hex(hex2));
+seg seg3(.bcd(seg3_bcd), .hex(hex3));
 
 always_comb
 begin    
@@ -48,7 +50,8 @@ begin
     end else begin
         seg1_bcd=4'b0001;
     end
-    seg2_bcd=addr[15];
+    seg2_bcd=addr[15:12];
+    seg3_bcd=addr[3:0];
 end
 
 
