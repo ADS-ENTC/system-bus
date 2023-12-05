@@ -15,10 +15,8 @@ module bb_master_port (
     input   logic       split,
 
     // connections to master
-    input   logic[7:0]  m_wr_data,
-    output  logic[7:0]  m_rd_data,
-    input   logic[15:0] m_addr,
-    input   logic       m_mode,
+    input   logic[24:0] uart_register_in,
+    output  logic[7:0]  uart_register_out,
     output  logic       m_out_valid,
     input   logic       m_in_valid
 );
@@ -56,7 +54,7 @@ module bb_master_port (
         mode    = t_mode;
         master_valid = state == ADDR_2 || state == ADDR_1 || state == WR_DATA;
         master_ready = state == RD_DATA;
-        m_rd_data = t_rd_data;
+        uart_register_out = t_rd_data;
         m_out_valid = state == CLEAN & t_count == 8;
         breq = state != IDLE && state != TIMEOUT_STATE;
     end
@@ -72,10 +70,9 @@ module bb_master_port (
         end else begin
             unique0 case (state)
                 IDLE: begin
-                    t_wr_data <= m_wr_data;
-                    t_rd_data <= m_rd_data;
-                    t_addr    <= m_addr;
-                    t_mode    <= m_mode;
+                    t_wr_data <= uart_register_in[7:0];
+                    t_addr    <= uart_register_in[23:8];
+                    t_mode    <= uart_register_in[24];
                 end
 
                 REQ: begin
