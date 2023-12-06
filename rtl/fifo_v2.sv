@@ -5,12 +5,12 @@ module FIFO #(parameter WIDTH = 32, parameter DEPTH = 16) (
     input logic enq, 
     input logic deq, 
     output logic [WIDTH-1:0] data_out,
-    output logic empty,
-    output logic full
+    output logic empty
 );
 
 logic [DEPTH-1:0][WIDTH-1:0] memory; //packed array
 logic [$clog2(DEPTH):0] rd_ptr, wr_ptr;
+logic full;
 
 assign data_out = memory[rd_ptr];
 assign empty = (rd_ptr == wr_ptr);
