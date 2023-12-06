@@ -21,6 +21,10 @@ module bus_top_tb;
     logic[6:0]  hex1;
     logic[6:0]  hex2;
     logic[6:0]  hex3;
+    logic       sig_tx;
+    logic       ready_tx;
+    logic       sig_rx;
+    logic       ready_rx;
 
     top tp(.*);
 
@@ -48,20 +52,20 @@ module bus_top_tb;
         keysn[1] = 1;
         #50;
 
-        keysn[1] = 0;
-        #50;
-        keysn[1] = 1;
-        #50;
+        // keysn[1] = 0;
+        // #50;
+        // keysn[1] = 1;
+        // #50;
 
         keysn[0] = 0;
         #50;
         keysn[0] = 1;
         #50;
 
-        keysn[0] = 0;
-        #50;
-        keysn[0] = 1;
-        #50;
+        // keysn[0] = 0;
+        // #50;
+        // keysn[0] = 1;
+        // #50;
 
 
         keysn[2] = 0;
