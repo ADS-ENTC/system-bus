@@ -17,7 +17,11 @@ module top(
     output  logic[6:0]  hex0,
     output  logic[6:0]  hex1,
     output  logic[6:0]  hex2,
-    output  logic[6:0]  hex3
+    output  logic[6:0]  hex3,
+    output  logic       sig_tx,
+    output  logic       ready_tx,
+    input   logic       sig_rx,
+    input   logic       ready_rx
 );  
 
     // wires
@@ -114,6 +118,11 @@ module top(
     logic       bb_rd_bus;
     logic       bb_slave_ready;
     logic       bb_slave_valid;
+
+    logic[7:0]  bb_uart_register_in;
+    logic[24:0] bb_uart_register_out;
+    logic       bb_valid_in;
+    logic       bb_valid_out;
 
     assign rstn_led = rstn;
     assign m1_ack_led = m1_ack;
@@ -236,6 +245,49 @@ module top(
         .ram_out(s3_ram_out),
         .ram_addr_out(s3_ram_addr_out),
         .ram_wr_en(s3_ram_wr_en)
+    );
+
+    slave_bus_bridge #(
+        .ADDR_WIDTH(14),
+        .DATA_WIDTH(8)
+    ) bb_s (
+        .clk(clk),
+        .rstn(rstn),
+        .mode(bb_mode),
+        .wr_bus(bb_wr_bus),
+        .master_valid(bb_master_valid),
+        .master_ready(bb_master_ready),
+        .rd_bus(bb_rd_bus),
+        .slave_ready(bb_slave_ready),
+        .slave_valid(bb_slave_valid),
+        .uart_register_in(bb_uart_register_in),
+        .uart_register_out(bb_uart_register_out),
+        .valid_in(bb_valid_in),
+        .valid_out(bb_valid_out)
+    );
+
+    uart_tx #(
+        .DATA_WIDTH(25),
+        .CLK_FREQ(50_000_000)
+    ) s_uart_tx (
+        .sig_tx(sig_tx),
+        .data_tx(bb_uart_register_out),
+        .valid_tx(bb_valid_out),
+        .ready_tx(ready_tx),
+        .clk(clk),
+        .rstn(rstn)
+    );
+
+    uart_rx #(
+        .DATA_WIDTH(8),
+        .CLK_FREQ(50_000_000)
+    ) s_uart_rx (
+        .sig_rx(sig_rx),
+        .data_rx(bb_uart_register_in),
+        .valid_rx(bb_valid_in),
+        .ready_rx(ready_rx),
+        .clk(clk),
+        .rstn(rstn)
     );
 
     master_1_ram m1_ram (
