@@ -41,6 +41,7 @@ module top(
     logic       m1_wr_en;
     logic       m1_start;
     logic       m1_mode_in;
+    logic[4:0]  m1_addr;
 
     //master 2;
     logic       m2_mode;
@@ -60,6 +61,7 @@ module top(
     logic       m2_wr_en;
     logic       m2_start;
     logic       m2_mode_in;
+    logic[4:0]  m2_addr;
 
     // slave 1;
     logic       s1_mode;
@@ -127,6 +129,9 @@ module top(
     assign m2_mode_led = m2_mode_in;
 
     assign rstn = keysn[3];
+    assign m1_addr = m1_mode ? addr[4:0] : 5'h0000;
+    assign m2_addr = m2_mode ? addr[4:0] : 5'h0000;
+
 
     demo intf (.*);
 
@@ -234,7 +239,7 @@ module top(
     );
 
     master_1_ram m1_ram (
-        .address(addr[4:0]),
+        .address(m1_addr),
         .clock(clk),
         .data(m1_rd_data),
         .wren(m1_wr_en),
@@ -242,7 +247,7 @@ module top(
     );
 
     master_2_ram m2_ram (
-        .address(addr[4:0]),
+        .address(m2_addr),
         .clock(clk),
         .data(m2_rd_data),
         .wren(m2_wr_en),
