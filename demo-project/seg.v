@@ -6,7 +6,7 @@ reg [6:0] hex;
 always @ (bcd)
 begin
 	case (bcd)
-	0:hex=7'B1110000;
+	0:hex=7'B1000000;
 	1:hex=7'B1111001;
 	2:hex=7'B0100100;
 	3:hex=7'B0110000;
@@ -16,6 +16,9 @@ begin
 	7:hex=7'B1111000;
 	8:hex=7'B0000000;
 	9:hex=7'B0010000;
+	10:hex=7'B0111101;
+	11:hex=7'B0111011;
+	12:hex=7'B0111111;
 	default:hex=7'B1000000;
 	endcase
 end

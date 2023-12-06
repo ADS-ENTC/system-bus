@@ -3,6 +3,8 @@ Quartus_Prime_Project/
 
 *.sv.bak
 quartus_project/*
+demo-vivado-project/*
+quartus_project/*
 
 # quartus project files
 *_generation_script*
