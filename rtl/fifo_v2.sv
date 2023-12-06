@@ -23,12 +23,12 @@ always_ff @(posedge clk or negedge rstn) begin
     end
 
     else begin
-        if (enq) begin
+        if (enq && !full) begin
             memory[wr_ptr] <= data_in;
             wr_ptr <= wr_ptr + 1;
         end
 
-        if (deq) begin
+        if (deq && !empty) begin
             rd_ptr <= rd_ptr + 1;
         end
     end
