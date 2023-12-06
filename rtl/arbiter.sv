@@ -102,7 +102,7 @@ module arbiter#(
             REQ2:               next_state = ( (m2_breq == 0) ? IDLE : (m2_master_valid) ? ADDR : REQ2 );
             REQ12:              next_state = ( (m1_breq == 0 || m2_breq == 0) ? IDLE : (m1_master_valid) ? ADDR : REQ12 );
             ADDR:               next_state = (t_count == 5 && master_valid) ? (ack ? CONNECTED : CLEAN) : ADDR;
-            CONNECTED:          next_state = (breq == 0) ? CLEAN : (slave_split ? SPLIT : CONNECTED);
+            CONNECTED:          next_state = (breq == 0) ? CLEAN : ((slave_split && (t_addr[3:0] == 4'b0001)) ? SPLIT : CONNECTED);
             SPLIT:              next_state = IDLE;
             CLEAN:              next_state = IDLE;
             default:            next_state = IDLE;
