@@ -53,7 +53,7 @@ module master_port (
     end
 
     always_comb begin : OUTPUT_LOGIC
-        wr_bus  = state == WR_DATA ? t_wr_data[7] : t_addr[15];
+        wr_bus  = state == WR_DATA ? t_wr_data[7] : t_addr[15 - t_count];
         mode    = t_mode;
         master_valid = state == ADDR_2 || state == ADDR_1 || state == WR_DATA;
         master_ready = state == RD_DATA;
@@ -87,13 +87,11 @@ module master_port (
                     timeout <= timeout + 1;
 
                     if(slave_ready) begin
-                        t_addr <= t_addr << 1;
                         t_count <= t_count + 1;
                     end
                 end
 
                 ADDR_2: if(slave_ready) begin
-                    t_addr <= t_addr << 1;
                     t_count <= t_count + 1;
                 end
 
