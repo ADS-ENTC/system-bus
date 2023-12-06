@@ -1,10 +1,6 @@
 module top(
     input   logic       clk,
-    input   logic       rstn,
-    input   logic       m1_mode_in,
-    input   logic       m1_start,
-    input   logic       m2_mode_in,
-    input   logic       m2_start,
+    input   logic[3:0]  keysn,
     input   logic[15:0] addr,
     output  logic       rstn_led,
     output  logic       m1_ack_led,
@@ -17,8 +13,15 @@ module top(
     output  logic       s1_slave_ready_led,
     output  logic       s1_master_valid_led,
     output  logic       m1_mode_led,
-    output  logic       m2_mode_led
+    output  logic       m2_mode_led,
+    output  logic[6:0]  hex0,
+    output  logic[6:0]  hex1,
+    output  logic[6:0]  hex2,
+    output  logic[6:0]  hex3
 );  
+
+    // wires
+    logic       rstn;
 
     // master 1;
     logic       m1_mode;
@@ -36,6 +39,9 @@ module top(
     logic[7:0]  m1_wr_data;
     logic[7:0]  m1_rd_data;
     logic       m1_wr_en;
+    logic       m1_start;
+    logic       m1_mode_in;
+    logic[4:0]  m1_addr;
 
     //master 2;
     logic       m2_mode;
@@ -53,6 +59,9 @@ module top(
     logic[7:0]  m2_wr_data;
     logic[7:0]  m2_rd_data;
     logic       m2_wr_en;
+    logic       m2_start;
+    logic       m2_mode_in;
+    logic[4:0]  m2_addr;
 
     // slave 1;
     logic       s1_mode;
@@ -119,6 +128,13 @@ module top(
     assign m1_mode_led = m1_mode_in;
     assign m2_mode_led = m2_mode_in;
 
+    assign rstn = keysn[3];
+    assign m1_addr = m1_mode ? addr[4:0] : 5'h0000;
+    assign m2_addr = m2_mode ? addr[4:0] : 5'h0000;
+
+
+    demo intf (.*);
+
     master_port mp_1 (
         .clk(clk),
         .rstn(rstn),
@@ -138,7 +154,7 @@ module top(
         .m_addr(addr),
         .m_mode(m1_mode_in),
         .m_wr_en(m1_wr_en),
-        .m_start(~m1_start)
+        .m_start(m1_start)
     );
 
     master_port mp_2 (
@@ -160,7 +176,7 @@ module top(
         .m_addr(addr),
         .m_mode(m2_mode_in),
         .m_wr_en(m2_wr_en),
-        .m_start(~m2_start)
+        .m_start(m2_start)
     );
 
     slave_port_v2 #(
@@ -223,7 +239,7 @@ module top(
     );
 
     master_1_ram m1_ram (
-        .address(addr[4:0]),
+        .address(m1_addr),
         .clock(clk),
         .data(m1_rd_data),
         .wren(m1_wr_en),
@@ -231,7 +247,7 @@ module top(
     );
 
     master_2_ram m2_ram (
-        .address(addr[4:0]),
+        .address(m2_addr),
         .clock(clk),
         .data(m2_rd_data),
         .wren(m2_wr_en),
