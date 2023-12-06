@@ -31,7 +31,7 @@ module bb_master_port (
     logic       t_mode;
 
     always_comb begin : NEXT_STATE_LOGIC
-        unique case (state)
+        case (state)
             IDLE:               next_state = m_in_valid ? REQ : IDLE;
             REQ:                next_state = bgrant ? ADDR_1 : REQ;
             ADDR_1:             next_state = timeout != TIMEOUT - 1 ? ((t_count == 5 & slave_ready) ? (ack ? ADDR_2 : CLEAN) : ADDR_1) : TIMEOUT_STATE;
@@ -68,7 +68,7 @@ module bb_master_port (
             t_mode    <= 0;
             timeout   <= 0;
         end else begin
-            unique0 case (state)
+            case (state)
                 IDLE: begin
                     t_wr_data <= uart_register_in[7:0];
                     t_addr    <= uart_register_in[23:8];
