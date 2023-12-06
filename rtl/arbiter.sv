@@ -340,7 +340,7 @@ module arbiter#(
         if (!rstn) begin
             t_count     <= 0;
             t_addr      <= 0;
-            bus_owner   <= bus_priority;
+            bus_owner   <= 0;
             split_owner <= NONE;
         end else begin
             unique case (state)
