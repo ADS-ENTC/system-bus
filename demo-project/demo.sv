@@ -1,7 +1,6 @@
 
 module demo (
-    input logic clk,
-    input logic rstn,      
+    input logic clk,        
     input logic [3:0] keysn,
     input logic [17:0] sws,
     output logic [6:0] hex0,
@@ -14,46 +13,54 @@ module demo (
   // Module implementation goes here
 logic [3:0] tmp;
 
-logic [3:0] seg0_bcd;
-logic [3:0] seg1_bcd;
-logic [3:0] seg2_bcd;
-logic [3:0] seg3_bcd;
+logic [3:0] m2_seg_state_bcd;
+logic [3:0] m2_seg_label_bcd;
+logic [3:0] m1_seg_state_bcd;
+logic [3:0] m1_seg_label_bcd;
 
-wire m1_select=sws[0];
-wire m1_mode=sws[1];
-wire m2_select=sws[2];
-wire m2_mode=sws[3];
-wire keys = ~keysn;
+wire rstn = keysn[3];
+
+wire [3:0] keys = ~keysn;
+wire start=keys[2];
+wire m1_key = keys[1];
+wire m2_key = keys[0];
+
 wire [15:0] addr={sws[15:4],4'b0010};
 
-// logic m1_select=sws[0];
-// logic m1_mode=sws[1];
-// logic m2_select=sws[2];
-// logic m2_mode=sws[3];
-// logic keys = ~keysn;
-// logic [15:0] addr={sws[16:4],4'b0000};
+enum logic[3:0] {READ=4'd10,WRITE=4'd11,DISABLE=4'd12} m1_state, m2_state;
+ 
+seg m2_seg_state(.bcd(m2_state), .hex(hex0));
+seg m2_seg_label(.bcd(4'b0010), .hex(hex1));
+seg m1_seg_state(.bcd(m1_state), .hex(hex2));
+seg m1_seg_label(.bcd(4'b0001), .hex(hex3));
 
-seg seg0(.bcd(seg0_bcd), .hex(hex0));
-seg seg1(.bcd(seg1_bcd), .hex(hex1));
-seg seg2(.bcd(seg2_bcd), .hex(hex2));
-seg seg3(.bcd(seg3_bcd), .hex(hex3));
 
-always_comb
-begin    
-    if(m1_select) begin
-        seg0_bcd=4'b0001;
-    end else begin
-        seg0_bcd=4'b0010;
+always_ff @(posedge m1_key or negedge rstn) begin
+    if (~rstn) begin
+        m1_state <= DISABLE;
     end
-    if(m2_select) begin
-        seg1_bcd=4'b0010;
-    end else begin
-        seg1_bcd=4'b0001;
-    end
-    seg2_bcd=addr[15:12];
-    seg3_bcd=addr[3:0];
+    else begin
+        case (m1_state)
+            DISABLE:m1_state <= READ;
+            READ:m1_state <= WRITE;
+            WRITE: m1_state <= DISABLE;
+            default: m1_state <= DISABLE;
+        endcase
+    end    
 end
 
-
+always_ff @(posedge m2_key or negedge rstn) begin
+    if (~rstn) begin
+        m2_state <= DISABLE;
+    end
+    else begin
+        case (m2_state)
+            DISABLE:m2_state <= READ;
+            READ:m2_state <= WRITE;
+            WRITE: m2_state <= DISABLE;
+            default: m2_state <= DISABLE;
+        endcase
+    end    
+end
   
 endmodule
