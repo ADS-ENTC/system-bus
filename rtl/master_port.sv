@@ -72,7 +72,7 @@ module master_port (
             timeout   <= 0;
         end else begin
             case (state)
-                FETCH: begin
+                IDLE: begin
                     t_wr_data <= m_wr_data;
                     t_addr    <= m_addr;
                     t_mode    <= m_mode;
