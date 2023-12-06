@@ -15,12 +15,13 @@ module bb_master_port (
     input   logic       split,
 
     // connections to master
-    input   logic[24:0] uart_register_in,
+    input   logic[24:0] fifo_data_in,
     output  logic[7:0]  uart_register_out,
     output  logic       m_out_valid,
-    input   logic       m_in_valid
+    input   logic       fifo_empty,
+    output  logic       fifo_deq
 );
-    enum logic[3:0] {IDLE, REQ, ADDR_1, ADDR_2, WR_DATA, RD_DATA, CLEAN, SPLIT, TIMEOUT_STATE} state, next_state;
+    enum logic[3:0] {IDLE, REQ, ADDR_1, ADDR_2, WR_DATA, RD_DATA, CLEAN, SPLIT, TIMEOUT_STATE, FETCH, DEQ} state, next_state;
     localparam TIMEOUT = 64;
     
     logic[3:0]  t_count;
@@ -32,7 +33,9 @@ module bb_master_port (
 
     always_comb begin : NEXT_STATE_LOGIC
         case (state)
-            IDLE:               next_state = m_in_valid ? REQ : IDLE;
+            IDLE:               next_state = !fifo_empty ? DEQ : IDLE;
+            DEQ:                next_state = FETCH;
+            FETCH:              next_state = REQ;
             REQ:                next_state = bgrant ? ADDR_1 : REQ;
             ADDR_1:             next_state = timeout != TIMEOUT - 1 ? ((t_count == 5 & slave_ready) ? (ack ? ADDR_2 : CLEAN) : ADDR_1) : TIMEOUT_STATE;
             TIMEOUT_STATE:      next_state = REQ;
@@ -57,6 +60,7 @@ module bb_master_port (
         uart_register_out = t_rd_data;
         m_out_valid = state == CLEAN & t_count == 8;
         breq = state != IDLE && state != TIMEOUT_STATE;
+        fifo_deq = state == DEQ;
     end
 
     always_ff @(posedge clk) begin : REG_LOGIC
@@ -69,10 +73,10 @@ module bb_master_port (
             timeout   <= 0;
         end else begin
             case (state)
-                IDLE: begin
-                    t_wr_data <= uart_register_in[7:0];
-                    t_addr    <= uart_register_in[23:8];
-                    t_mode    <= uart_register_in[24];
+                FETCH: begin
+                    t_wr_data <= fifo_data_in[7:0];
+                    t_addr    <= fifo_data_in[23:8];
+                    t_mode    <= fifo_data_in[24];
                 end
 
                 REQ: begin

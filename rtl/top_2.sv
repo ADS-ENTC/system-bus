@@ -64,10 +64,13 @@ module top_2(
     logic       m2_bgrant;
     logic       m2_split;
 
+    logic[24:0] fifo_data_in;
     logic[24:0] mp_bb_uart_register_in;
     logic[7:0]  mp_bb_uart_register_out;
-    logic       mp_bb_m_out_valid;
     logic       mp_bb_m_in_valid;
+    logic       mp_bb_m_out_valid;
+    logic       fifo_empty;
+    logic       fifo_deq;
     logic       m2_start;
     logic       m2_mode_in;
 
@@ -184,10 +187,24 @@ module top_2(
         .breq(m2_breq),
         .bgrant(m2_bgrant),
         .split(m2_split),
-        .uart_register_in(mp_bb_uart_register_in),
+        .fifo_data_in(fifo_data_in),
         .uart_register_out(mp_bb_uart_register_out),
         .m_out_valid(mp_bb_m_out_valid),
-        .m_in_valid(mp_bb_m_in_valid)
+        .fifo_empty(fifo_empty),
+        .fifo_deq(fifo_deq)
+    );
+
+    FIFO #(
+        .WIDTH(25),
+        .DEPTH(16)
+    ) fifo (
+        .clk(clk),
+        .rstn(rstn),
+        .data_in(mp_bb_uart_register_in),
+        .enq(mp_bb_m_in_valid),
+        .deq(fifo_deq),
+        .data_out(fifo_data_in),
+        .empty(fifo_empty)
     );
 
     uart_tx #(
