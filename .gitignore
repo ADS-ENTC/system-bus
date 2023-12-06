@@ -2,6 +2,8 @@ vivado_project/
 Quartus_Prime_Project/
 
 *.sv.bak
+quartus_project/*
+demo-vivado-project/*
 
 # quartus project files
 *_generation_script*
@@ -44,4 +46,4 @@ incremental_db/
 db/
 _output_files/
 PLLJ_PLLSPE_INFO.txt
-
+*.txt
