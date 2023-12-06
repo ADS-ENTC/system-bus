@@ -33,7 +33,7 @@ module master_port (
     logic       t_mode;
 
     always_comb begin : NEXT_STATE_LOGIC
-        unique case (state)
+        case (state)
             IDLE:               next_state = m_start ? REQ : IDLE;
             REQ:                next_state = bgrant ? FETCH : REQ;
             FETCH:              next_state = ADDR_1;
@@ -71,7 +71,7 @@ module master_port (
             t_mode    <= 0;
             timeout   <= 0;
         end else begin
-            unique case (state)
+            case (state)
                 FETCH: begin
                     t_wr_data <= m_wr_data;
                     t_addr    <= m_addr;
