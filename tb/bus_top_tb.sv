@@ -38,44 +38,92 @@ module bus_top_tb;
 
         #100;
 
+
+        // master 1 write transaction
         keysn[3] = 0;
         #20;
         keysn[3]        = 1;
         #40;
 
-
-
-        
-        addr        = {4'b0001, 12'hA8};
+        addr        = {4'b0000, 12'hA8};
         keysn[1] = 0;
         #50;
         keysn[1] = 1;
         #50;
 
-        // keysn[1] = 0;
-        // #50;
-        // keysn[1] = 1;
-        // #50;
-
-        keysn[0] = 0;
+        keysn[1] = 0;
         #50;
-        keysn[0] = 1;
+        keysn[1] = 1;
         #50;
-
-        // keysn[0] = 0;
-        // #50;
-        // keysn[0] = 1;
-        // #50;
-
 
         keysn[2] = 0;
         #50;
         keysn[2] = 1;
         #50;
 
+        #3000;
 
+        // master 1 read transaction
+        keysn[3] = 0;
+        #20;
+        keysn[3]        = 1;
+        #40;
 
-        #5000;
+        addr        = {4'b0000, 12'hA8};
+        keysn[1] = 0;
+        #50;
+        keysn[1] = 1;
+        #50;
+
+        keysn[2] = 0;
+        #50;
+        keysn[2] = 1;
+        #50;
+
+        #3000;
+
+        // master 1 and master 2 read transaction
+        keysn[3] = 0;
+        #20;
+        keysn[3]        = 1;
+        #40;
+
+        addr        = {4'b0010, 12'hA8};
+        keysn[1] = 0;
+        #50;
+        keysn[1] = 1;
+        #50;
+
+        keysn[0] = 0;
+        #50;
+        keysn[0] = 1;
+        #50;
+
+        keysn[2] = 0;
+        #50;
+        keysn[2] = 1;
+        #50;
+
+        #3000;
+
+        // split transaction
+        keysn[3] = 0;
+        #20;
+        keysn[3]        = 1;
+        #40;
+
+        addr        = {4'b0001, 12'hA8};
+        keysn[1] = 0;
+        #50;
+        keysn[1] = 1;
+        #50;
+
+        keysn[2] = 0;
+        #50;
+        keysn[2] = 1;
+        #50;
+
+        #3000;
 
         $finish;
 
