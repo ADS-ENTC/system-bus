@@ -48,7 +48,7 @@ module master_port (
         endcase
     end
 
-    always_ff @(posedge clk or negedge rstn) begin : STATE_SEQUENCER
+    always_ff @(posedge clk) begin : STATE_SEQUENCER
         state <= !rstn ? IDLE : next_state;
     end
 

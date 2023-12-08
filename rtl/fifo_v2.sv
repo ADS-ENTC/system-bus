@@ -16,7 +16,7 @@ assign data_out = memory[rd_ptr];
 assign empty = (rd_ptr == wr_ptr);
 assign full = (rd_ptr == wr_ptr + 1);
 
-always_ff @(posedge clk or negedge rstn) begin
+always_ff @(posedge clk) begin
     if(!rstn) begin
         rd_ptr <= 0;
         wr_ptr <= 0;
