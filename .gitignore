@@ -1,6 +1,6 @@
 vivado_project/
 Quartus_Prime_Project/
-
+demo-project/
 *.sv.bak
 
 demo-vivado-project/*
