@@ -1,0 +1,661 @@
+# //  Questa Intel Starter FPGA Edition-64
+# //  Version 2021.2 linux_x86_64 Apr 14 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# do quartus_project_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Questa Intel Starter FPGA Edition-64 vmap 2021.2 Lib Mapping Utility 2021.04 Apr 14 2021
+# vmap work rtl_work 
+# Copying /home/dakshina/tools/intelFPGA_lite/22.1std/questa_fse/linux_x86_64/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl {/home/dakshina/Projects/ADS/system-bus/rtl/seg.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:06:42 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" /home/dakshina/Projects/ADS/system-bus/rtl/seg.v 
+# -- Compiling module seg
+# 
+# Top level modules:
+# 	seg
+# End time: 13:06:42 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project {/home/dakshina/Projects/ADS/system-bus/quartus_project/master_1_ram.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:06:42 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project" /home/dakshina/Projects/ADS/system-bus/quartus_project/master_1_ram.v 
+# -- Compiling module master_1_ram
+# 
+# Top level modules:
+# 	master_1_ram
+# End time: 13:06:42 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project {/home/dakshina/Projects/ADS/system-bus/quartus_project/slave_1_ram.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:06:42 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project" /home/dakshina/Projects/ADS/system-bus/quartus_project/slave_1_ram.v 
+# -- Compiling module slave_1_ram
+# 
+# Top level modules:
+# 	slave_1_ram
+# End time: 13:06:42 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project {/home/dakshina/Projects/ADS/system-bus/quartus_project/slave_2_ram.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:06:42 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project" /home/dakshina/Projects/ADS/system-bus/quartus_project/slave_2_ram.v 
+# -- Compiling module slave_2_ram
+# 
+# Top level modules:
+# 	slave_2_ram
+# End time: 13:06:42 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project {/home/dakshina/Projects/ADS/system-bus/quartus_project/slave_3_ram.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:06:42 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project" /home/dakshina/Projects/ADS/system-bus/quartus_project/slave_3_ram.v 
+# -- Compiling module slave_3_ram
+# 
+# Top level modules:
+# 	slave_3_ram
+# End time: 13:06:43 on Dec 07,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project {/home/dakshina/Projects/ADS/system-bus/quartus_project/master_2_ram.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:06:43 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project" /home/dakshina/Projects/ADS/system-bus/quartus_project/master_2_ram.v 
+# -- Compiling module master_2_ram
+# 
+# Top level modules:
+# 	master_2_ram
+# End time: 13:06:43 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl {/home/dakshina/Projects/ADS/system-bus/rtl/uart_tx.sv}
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:06:43 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" /home/dakshina/Projects/ADS/system-bus/rtl/uart_tx.sv 
+# -- Compiling module uart_tx
+# 
+# Top level modules:
+# 	uart_tx
+# End time: 13:06:43 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl {/home/dakshina/Projects/ADS/system-bus/rtl/uart_rx.sv}
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:06:43 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" /home/dakshina/Projects/ADS/system-bus/rtl/uart_rx.sv 
+# -- Compiling module uart_rx
+# 
+# Top level modules:
+# 	uart_rx
+# End time: 13:06:43 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl {/home/dakshina/Projects/ADS/system-bus/rtl/slave_bus_bridge.sv}
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:06:43 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" /home/dakshina/Projects/ADS/system-bus/rtl/slave_bus_bridge.sv 
+# -- Compiling module slave_bus_bridge
+# 
+# Top level modules:
+# 	slave_bus_bridge
+# End time: 13:06:43 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl {/home/dakshina/Projects/ADS/system-bus/rtl/demo.sv}
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:06:43 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" /home/dakshina/Projects/ADS/system-bus/rtl/demo.sv 
+# -- Compiling module demo
+# 
+# Top level modules:
+# 	demo
+# End time: 13:06:43 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl {/home/dakshina/Projects/ADS/system-bus/rtl/slave_port_v2.sv}
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:06:43 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" /home/dakshina/Projects/ADS/system-bus/rtl/slave_port_v2.sv 
+# -- Compiling module slave_port_v2
+# 
+# Top level modules:
+# 	slave_port_v2
+# End time: 13:06:43 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl {/home/dakshina/Projects/ADS/system-bus/rtl/arbiter.sv}
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:06:43 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" /home/dakshina/Projects/ADS/system-bus/rtl/arbiter.sv 
+# -- Compiling module arbiter
+# 
+# Top level modules:
+# 	arbiter
+# End time: 13:06:43 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl {/home/dakshina/Projects/ADS/system-bus/rtl/master_port.sv}
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:06:43 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" /home/dakshina/Projects/ADS/system-bus/rtl/master_port.sv 
+# -- Compiling module master_port
+# 
+# Top level modules:
+# 	master_port
+# End time: 13:06:43 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl {/home/dakshina/Projects/ADS/system-bus/rtl/top.sv}
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:06:43 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" /home/dakshina/Projects/ADS/system-bus/rtl/top.sv 
+# -- Compiling module top
+# ** Warning: /home/dakshina/Projects/ADS/system-bus/rtl/top.sv(141): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+# ** Warning: /home/dakshina/Projects/ADS/system-bus/rtl/top.sv(142): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+# 
+# Top level modules:
+# 	top
+# End time: 13:06:43 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 2
+# 
+vlog -reportprogress 300 -work work /home/dakshina/Projects/ADS/system-bus/tb/bus_top_tb.sv
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:06:52 on Dec 07,2023
+# vlog -reportprogress 300 -work work /home/dakshina/Projects/ADS/system-bus/tb/bus_top_tb.sv 
+# -- Compiling module bus_top_tb
+# 
+# Top level modules:
+# 	bus_top_tb
+# End time: 13:06:52 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim -i -l msim_transcript work.bus_top_tb -Lf altera_mf_ver -voptargs=+acc
+# vsim -i -l msim_transcript work.bus_top_tb -Lf altera_mf_ver -voptargs="+acc" 
+# Start time: 13:07:09 on Dec 07,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Note: (vopt-143) Recognized 1 FSM in module "arbiter(fast)".
+# ** Warning: /home/dakshina/Projects/ADS/system-bus/rtl/top.sv(194): (vopt-2685) [TFMPC] - Too few port connections for 'sp_1'.  Expected 14, found 13.
+# ** Warning: /home/dakshina/Projects/ADS/system-bus/rtl/top.sv(194): (vopt-2718) [TFMPC] - Missing connection for port 'split'.
+# ** Warning: /home/dakshina/Projects/ADS/system-bus/rtl/top.sv(234): (vopt-2685) [TFMPC] - Too few port connections for 'sp_3'.  Expected 14, found 13.
+# ** Warning: /home/dakshina/Projects/ADS/system-bus/rtl/top.sv(234): (vopt-2718) [TFMPC] - Missing connection for port 'split'.
+# ** Warning: /home/dakshina/Projects/ADS/system-bus/rtl/top.sv(253): (vopt-2685) [TFMPC] - Too few port connections for 'bb_s'.  Expected 14, found 13.
+# ** Warning: /home/dakshina/Projects/ADS/system-bus/rtl/top.sv(253): (vopt-2718) [TFMPC] - Missing connection for port 'split'.
+# ** Note: (vopt-143) Recognized 1 FSM in module "slave_port_v2(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "slave_port_v2(fast__1)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "slave_port_v2(fast__2)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "uart_rx(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "slave_bus_bridge(fast)".
+# ** Note: (vopt-143) Recognized 2 FSMs in module "demo(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "uart_tx(fast)".
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=6.
+# Loading sv_std.std
+# Loading work.bus_top_tb(fast)
+# Loading work.top(fast)
+# Loading work.demo(fast)
+# Loading work.seg(fast)
+# Loading work.master_port(fast)
+# Loading work.slave_port_v2(fast)
+# Loading work.slave_port_v2(fast__1)
+# Loading work.slave_port_v2(fast__2)
+# Loading work.slave_bus_bridge(fast)
+# Loading work.uart_tx(fast)
+# Loading work.uart_rx(fast)
+# Loading work.master_1_ram(fast)
+# Loading altera_mf_ver.altsyncram(fast)
+# Loading altera_mf_ver.altsyncram_body(fast)
+# Loading altera_mf_ver.ALTERA_DEVICE_FAMILIES(fast)
+# Loading altera_mf_ver.ALTERA_MF_MEMORY_INITIALIZATION(fast)
+# Loading work.master_2_ram(fast)
+# Loading altera_mf_ver.altsyncram(fast__1)
+# Loading altera_mf_ver.altsyncram_body(fast__1)
+# Loading work.slave_1_ram(fast)
+# Loading altera_mf_ver.altsyncram(fast__2)
+# Loading altera_mf_ver.altsyncram_body(fast__2)
+# Loading work.slave_2_ram(fast)
+# Loading altera_mf_ver.altsyncram(fast__3)
+# Loading altera_mf_ver.altsyncram_body(fast__3)
+# Loading work.slave_3_ram(fast)
+# Loading altera_mf_ver.altsyncram(fast__4)
+# Loading altera_mf_ver.altsyncram_body(fast__4)
+# Loading work.arbiter(fast)
+add wave -position end  sim:/bus_top_tb/tp/mp_1/TIMEOUT
+add wave -position end  sim:/bus_top_tb/tp/mp_1/clk
+add wave -position end  sim:/bus_top_tb/tp/mp_1/rstn
+add wave -position end  sim:/bus_top_tb/tp/mp_1/mode
+add wave -position end  sim:/bus_top_tb/tp/mp_1/rd_bus
+add wave -position end  sim:/bus_top_tb/tp/mp_1/wr_bus
+add wave -position end  sim:/bus_top_tb/tp/mp_1/ack
+add wave -position end  sim:/bus_top_tb/tp/mp_1/master_valid
+add wave -position end  sim:/bus_top_tb/tp/mp_1/slave_ready
+add wave -position end  sim:/bus_top_tb/tp/mp_1/master_ready
+add wave -position end  sim:/bus_top_tb/tp/mp_1/slave_valid
+add wave -position end  sim:/bus_top_tb/tp/mp_1/breq
+add wave -position end  sim:/bus_top_tb/tp/mp_1/bgrant
+add wave -position end  sim:/bus_top_tb/tp/mp_1/split
+add wave -position end  sim:/bus_top_tb/tp/mp_1/m_wr_data
+add wave -position end  sim:/bus_top_tb/tp/mp_1/m_rd_data
+add wave -position end  sim:/bus_top_tb/tp/mp_1/m_addr
+add wave -position end  sim:/bus_top_tb/tp/mp_1/m_mode
+add wave -position end  sim:/bus_top_tb/tp/mp_1/m_wr_en
+add wave -position end  sim:/bus_top_tb/tp/mp_1/m_start
+add wave -position end  sim:/bus_top_tb/tp/mp_1/state
+add wave -position end  sim:/bus_top_tb/tp/mp_1/next_state
+add wave -position end  sim:/bus_top_tb/tp/mp_1/t_count
+add wave -position end  sim:/bus_top_tb/tp/mp_1/timeout
+add wave -position end  sim:/bus_top_tb/tp/mp_1/t_wr_data
+add wave -position end  sim:/bus_top_tb/tp/mp_1/t_rd_data
+add wave -position end  sim:/bus_top_tb/tp/mp_1/t_addr
+add wave -position end  sim:/bus_top_tb/tp/mp_1/t_mode
+add wave -position end  sim:/bus_top_tb/tp/sp_2/ADDR_WIDTH
+add wave -position end  sim:/bus_top_tb/tp/sp_2/DATA_WIDTH
+add wave -position end  sim:/bus_top_tb/tp/sp_2/READ_LATENCY
+add wave -position end  sim:/bus_top_tb/tp/sp_2/SPLIT_EN
+add wave -position end  sim:/bus_top_tb/tp/sp_2/COUNTER_LENGTH
+add wave -position end  sim:/bus_top_tb/tp/sp_2/NUM_STATES
+add wave -position end  sim:/bus_top_tb/tp/sp_2/STATE_N_BITS
+add wave -position end  sim:/bus_top_tb/tp/sp_2/READ_COUNTER_LENGTH
+add wave -position end  sim:/bus_top_tb/tp/sp_2/mode
+add wave -position end  sim:/bus_top_tb/tp/sp_2/wr_bus
+add wave -position end  sim:/bus_top_tb/tp/sp_2/master_valid
+add wave -position end  sim:/bus_top_tb/tp/sp_2/master_ready
+add wave -position end  sim:/bus_top_tb/tp/sp_2/rstn
+add wave -position end  sim:/bus_top_tb/tp/sp_2/clk
+add wave -position end  sim:/bus_top_tb/tp/sp_2/rd_bus
+add wave -position end  sim:/bus_top_tb/tp/sp_2/slave_ready
+add wave -position end  sim:/bus_top_tb/tp/sp_2/slave_valid
+add wave -position end  sim:/bus_top_tb/tp/sp_2/split
+add wave -position end  sim:/bus_top_tb/tp/sp_2/ram_in
+add wave -position end  sim:/bus_top_tb/tp/sp_2/ram_out
+add wave -position end  sim:/bus_top_tb/tp/sp_2/ram_addr_out
+add wave -position end  sim:/bus_top_tb/tp/sp_2/ram_wr_en
+add wave -position end  sim:/bus_top_tb/tp/sp_2/counter
+add wave -position end  sim:/bus_top_tb/tp/sp_2/addr_in
+add wave -position end  sim:/bus_top_tb/tp/sp_2/data_in
+add wave -position end  sim:/bus_top_tb/tp/sp_2/port_ready
+add wave -position end  sim:/bus_top_tb/tp/sp_2/port_valid
+add wave -position end  sim:/bus_top_tb/tp/sp_2/read_counter
+add wave -position end  sim:/bus_top_tb/tp/sp_2/state
+add wave -position end  sim:/bus_top_tb/tp/sp_2/next_state
+add wave -position end  sim:/bus_top_tb/tp/arb/bus_priority
+add wave -position end  sim:/bus_top_tb/tp/arb/clk
+add wave -position end  sim:/bus_top_tb/tp/arb/rstn
+add wave -position end  sim:/bus_top_tb/tp/arb/m1_mode
+add wave -position end  sim:/bus_top_tb/tp/arb/m1_rd_bus
+add wave -position end  sim:/bus_top_tb/tp/arb/m1_wr_bus
+add wave -position end  sim:/bus_top_tb/tp/arb/m1_ack
+add wave -position end  sim:/bus_top_tb/tp/arb/m1_master_valid
+add wave -position end  sim:/bus_top_tb/tp/arb/m1_slave_ready
+add wave -position end  sim:/bus_top_tb/tp/arb/m1_master_ready
+add wave -position end  sim:/bus_top_tb/tp/arb/m1_slave_valid
+add wave -position end  sim:/bus_top_tb/tp/arb/m1_breq
+add wave -position end  sim:/bus_top_tb/tp/arb/m1_bgrant
+add wave -position end  sim:/bus_top_tb/tp/arb/m2_mode
+add wave -position end  sim:/bus_top_tb/tp/arb/m2_rd_bus
+add wave -position end  sim:/bus_top_tb/tp/arb/m2_wr_bus
+add wave -position end  sim:/bus_top_tb/tp/arb/m2_ack
+add wave -position end  sim:/bus_top_tb/tp/arb/m2_master_valid
+add wave -position end  sim:/bus_top_tb/tp/arb/m2_slave_ready
+add wave -position end  sim:/bus_top_tb/tp/arb/m2_master_ready
+add wave -position end  sim:/bus_top_tb/tp/arb/m2_slave_valid
+add wave -position end  sim:/bus_top_tb/tp/arb/m2_breq
+add wave -position end  sim:/bus_top_tb/tp/arb/m2_bgrant
+add wave -position end  sim:/bus_top_tb/tp/arb/s1_mode
+add wave -position end  sim:/bus_top_tb/tp/arb/s1_wr_bus
+add wave -position end  sim:/bus_top_tb/tp/arb/s1_master_valid
+add wave -position end  sim:/bus_top_tb/tp/arb/s1_master_ready
+add wave -position end  sim:/bus_top_tb/tp/arb/s1_rd_bus
+add wave -position end  sim:/bus_top_tb/tp/arb/s1_slave_ready
+add wave -position end  sim:/bus_top_tb/tp/arb/s1_slave_valid
+add wave -position end  sim:/bus_top_tb/tp/arb/s2_mode
+add wave -position end  sim:/bus_top_tb/tp/arb/s2_wr_bus
+add wave -position end  sim:/bus_top_tb/tp/arb/s2_master_valid
+add wave -position end  sim:/bus_top_tb/tp/arb/s2_master_ready
+add wave -position end  sim:/bus_top_tb/tp/arb/s2_rd_bus
+add wave -position end  sim:/bus_top_tb/tp/arb/s2_slave_ready
+add wave -position end  sim:/bus_top_tb/tp/arb/s2_slave_valid
+add wave -position end  sim:/bus_top_tb/tp/arb/s3_mode
+add wave -position end  sim:/bus_top_tb/tp/arb/s3_wr_bus
+add wave -position end  sim:/bus_top_tb/tp/arb/s3_master_valid
+add wave -position end  sim:/bus_top_tb/tp/arb/s3_master_ready
+add wave -position end  sim:/bus_top_tb/tp/arb/s3_rd_bus
+add wave -position end  sim:/bus_top_tb/tp/arb/s3_slave_ready
+add wave -position end  sim:/bus_top_tb/tp/arb/s3_slave_valid
+add wave -position end  sim:/bus_top_tb/tp/arb/bb_mode
+add wave -position end  sim:/bus_top_tb/tp/arb/bb_wr_bus
+add wave -position end  sim:/bus_top_tb/tp/arb/bb_master_valid
+add wave -position end  sim:/bus_top_tb/tp/arb/bb_master_ready
+add wave -position end  sim:/bus_top_tb/tp/arb/bb_rd_bus
+add wave -position end  sim:/bus_top_tb/tp/arb/bb_slave_ready
+add wave -position end  sim:/bus_top_tb/tp/arb/bb_slave_valid
+add wave -position end  sim:/bus_top_tb/tp/arb/slave_split
+add wave -position end  sim:/bus_top_tb/tp/arb/m1_split
+add wave -position end  sim:/bus_top_tb/tp/arb/m2_split
+add wave -position end  sim:/bus_top_tb/tp/arb/state
+add wave -position end  sim:/bus_top_tb/tp/arb/next_state
+add wave -position end  sim:/bus_top_tb/tp/arb/slave
+add wave -position end  sim:/bus_top_tb/tp/arb/split_owner
+add wave -position end  sim:/bus_top_tb/tp/arb/t_addr
+add wave -position end  sim:/bus_top_tb/tp/arb/t_count
+add wave -position end  sim:/bus_top_tb/tp/arb/t_slave_ready
+add wave -position end  sim:/bus_top_tb/tp/arb/bus_owner
+add wave -position end  sim:/bus_top_tb/tp/arb/mode
+add wave -position end  sim:/bus_top_tb/tp/arb/rd_bus
+add wave -position end  sim:/bus_top_tb/tp/arb/wr_bus
+add wave -position end  sim:/bus_top_tb/tp/arb/ack
+add wave -position end  sim:/bus_top_tb/tp/arb/master_valid
+add wave -position end  sim:/bus_top_tb/tp/arb/slave_ready
+add wave -position end  sim:/bus_top_tb/tp/arb/master_ready
+add wave -position end  sim:/bus_top_tb/tp/arb/slave_valid
+add wave -position end  sim:/bus_top_tb/tp/arb/breq
+run
+# ** Warning: (vsim-3534) [FOFIR] - Failed to open file "../quartus_project/mem_init_files/master_1.mif" for reading.
+# No such file or directory. (errno = ENOENT)    : /home/dakshina/tools/intelFPGA_lite/22.1std/questa_fse/linux_x86_64/../intel/verilog/src/altera_mf.v(264)
+#    Time: 0 ps  Iteration: 0  Instance: /bus_top_tb/tp/m1_ram/altsyncram_component/m_default/altsyncram_inst
+# ERROR: cannot read ../quartus_project/mem_init_files/master_1.mif.
+# ** Warning: (vsim-7) Failed to open readmem file "../quartus_project/mem_init_files/master_1.ver" in read mode.
+# No such file or directory. (errno = ENOENT)    : /home/dakshina/tools/intelFPGA_lite/22.1std/questa_fse/linux_x86_64/../intel/verilog/src/altera_mf.v(48978)
+#    Time: 0 ps  Iteration: 0  Instance: /bus_top_tb/tp/m1_ram/altsyncram_component/m_default/altsyncram_inst
+# ** Warning: (vsim-3534) [FOFIR] - Failed to open file "../quartus_project/mem_init_files/master_2.mif" for reading.
+# No such file or directory. (errno = ENOENT)    : /home/dakshina/tools/intelFPGA_lite/22.1std/questa_fse/linux_x86_64/../intel/verilog/src/altera_mf.v(264)
+#    Time: 0 ps  Iteration: 0  Instance: /bus_top_tb/tp/m2_ram/altsyncram_component/m_default/altsyncram_inst
+# ERROR: cannot read ../quartus_project/mem_init_files/master_2.mif.
+# ** Warning: (vsim-7) Failed to open readmem file "../quartus_project/mem_init_files/master_2.ver" in read mode.
+# No such file or directory. (errno = ENOENT)    : /home/dakshina/tools/intelFPGA_lite/22.1std/questa_fse/linux_x86_64/../intel/verilog/src/altera_mf.v(48978)
+#    Time: 0 ps  Iteration: 0  Instance: /bus_top_tb/tp/m2_ram/altsyncram_component/m_default/altsyncram_inst
+# ** Warning: (vsim-3534) [FOFIR] - Failed to open file "../mem_init_files/slave_1.mif" for reading.
+# No such file or directory. (errno = ENOENT)    : /home/dakshina/tools/intelFPGA_lite/22.1std/questa_fse/linux_x86_64/../intel/verilog/src/altera_mf.v(264)
+#    Time: 0 ps  Iteration: 0  Instance: /bus_top_tb/tp/s1_ram/altsyncram_component/m_default/altsyncram_inst
+# ERROR: cannot read ../mem_init_files/slave_1.mif.
+# ** Warning: (vsim-7) Failed to open readmem file "../mem_init_files/slave_1.ver" in read mode.
+# No such file or directory. (errno = ENOENT)    : /home/dakshina/tools/intelFPGA_lite/22.1std/questa_fse/linux_x86_64/../intel/verilog/src/altera_mf.v(48978)
+#    Time: 0 ps  Iteration: 0  Instance: /bus_top_tb/tp/s1_ram/altsyncram_component/m_default/altsyncram_inst
+# ** Warning: (vsim-3534) [FOFIR] - Failed to open file "../mem_init_files/slave_2.mif" for reading.
+# No such file or directory. (errno = ENOENT)    : /home/dakshina/tools/intelFPGA_lite/22.1std/questa_fse/linux_x86_64/../intel/verilog/src/altera_mf.v(264)
+#    Time: 0 ps  Iteration: 0  Instance: /bus_top_tb/tp/s2_ram/altsyncram_component/m_default/altsyncram_inst
+# ERROR: cannot read ../mem_init_files/slave_2.mif.
+# ** Warning: (vsim-7) Failed to open readmem file "../mem_init_files/slave_2.ver" in read mode.
+# No such file or directory. (errno = ENOENT)    : /home/dakshina/tools/intelFPGA_lite/22.1std/questa_fse/linux_x86_64/../intel/verilog/src/altera_mf.v(48978)
+#    Time: 0 ps  Iteration: 0  Instance: /bus_top_tb/tp/s2_ram/altsyncram_component/m_default/altsyncram_inst
+# ** Warning: (vsim-3534) [FOFIR] - Failed to open file "../mem_init_files/slave_3.mif" for reading.
+# No such file or directory. (errno = ENOENT)    : /home/dakshina/tools/intelFPGA_lite/22.1std/questa_fse/linux_x86_64/../intel/verilog/src/altera_mf.v(264)
+#    Time: 0 ps  Iteration: 0  Instance: /bus_top_tb/tp/s3_ram/altsyncram_component/m_default/altsyncram_inst
+# ERROR: cannot read ../mem_init_files/slave_3.mif.
+# ** Warning: (vsim-7) Failed to open readmem file "../mem_init_files/slave_3.ver" in read mode.
+# No such file or directory. (errno = ENOENT)    : /home/dakshina/tools/intelFPGA_lite/22.1std/questa_fse/linux_x86_64/../intel/verilog/src/altera_mf.v(48978)
+#    Time: 0 ps  Iteration: 0  Instance: /bus_top_tb/tp/s3_ram/altsyncram_component/m_default/altsyncram_inst
+run
+# ** Note: $finish    : /home/dakshina/Projects/ADS/system-bus/tb/bus_top_tb.sv(128)
+#    Time: 13340 ps  Iteration: 0  Instance: /bus_top_tb
+# 1
+# Break in Module bus_top_tb at /home/dakshina/Projects/ADS/system-bus/tb/bus_top_tb.sv line 128
+# Modified modelsim.ini
+# Modified modelsim.ini
+vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/arbiter.sv
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:18:46 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/arbiter.sv 
+# -- Compiling module arbiter
+# 
+# Top level modules:
+# 	arbiter
+# End time: 13:18:46 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/tb/bus_top_tb.sv
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:18:46 on Dec 07,2023
+# vlog -reportprogress 300 -work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/tb/bus_top_tb.sv 
+# -- Compiling module bus_top_tb
+# 
+# Top level modules:
+# 	bus_top_tb
+# End time: 13:18:46 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/demo.sv
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:18:46 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/demo.sv 
+# -- Compiling module demo
+# 
+# Top level modules:
+# 	demo
+# End time: 13:18:46 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/quartus_project/master_1_ram.v
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:18:46 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project" -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/quartus_project/master_1_ram.v 
+# -- Compiling module master_1_ram
+# 
+# Top level modules:
+# 	master_1_ram
+# End time: 13:18:46 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/quartus_project/master_2_ram.v
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:18:46 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project" -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/quartus_project/master_2_ram.v 
+# -- Compiling module master_2_ram
+# 
+# Top level modules:
+# 	master_2_ram
+# End time: 13:18:46 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/master_port.sv
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:18:46 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/master_port.sv 
+# -- Compiling module master_port
+# 
+# Top level modules:
+# 	master_port
+# End time: 13:18:46 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/seg.v
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:18:46 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/seg.v 
+# -- Compiling module seg
+# 
+# Top level modules:
+# 	seg
+# End time: 13:18:46 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/quartus_project/slave_1_ram.v
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:18:46 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project" -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/quartus_project/slave_1_ram.v 
+# -- Compiling module slave_1_ram
+# 
+# Top level modules:
+# 	slave_1_ram
+# End time: 13:18:47 on Dec 07,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/quartus_project/slave_2_ram.v
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:18:47 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project" -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/quartus_project/slave_2_ram.v 
+# -- Compiling module slave_2_ram
+# 
+# Top level modules:
+# 	slave_2_ram
+# End time: 13:18:47 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/quartus_project/slave_3_ram.v
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:18:47 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project" -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/quartus_project/slave_3_ram.v 
+# -- Compiling module slave_3_ram
+# 
+# Top level modules:
+# 	slave_3_ram
+# End time: 13:18:47 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/slave_bus_bridge.sv
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:18:47 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/slave_bus_bridge.sv 
+# -- Compiling module slave_bus_bridge
+# 
+# Top level modules:
+# 	slave_bus_bridge
+# End time: 13:18:47 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/slave_port_v2.sv
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:18:47 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/slave_port_v2.sv 
+# -- Compiling module slave_port_v2
+# 
+# Top level modules:
+# 	slave_port_v2
+# End time: 13:18:47 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/top.sv
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:18:47 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/top.sv 
+# -- Compiling module top
+# ** Warning: /home/dakshina/Projects/ADS/system-bus/rtl/top.sv(141): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+# ** Warning: /home/dakshina/Projects/ADS/system-bus/rtl/top.sv(142): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+# 
+# Top level modules:
+# 	top
+# End time: 13:18:47 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 2
+vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/uart_rx.sv
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:18:47 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/uart_rx.sv 
+# -- Compiling module uart_rx
+# 
+# Top level modules:
+# 	uart_rx
+# End time: 13:18:47 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/uart_tx.sv
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:18:47 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/uart_tx.sv 
+# -- Compiling module uart_tx
+# 
+# Top level modules:
+# 	uart_tx
+# End time: 13:18:47 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim -i -l msim_transcript -Lf altera_mf_ver -voptargs=+acc work.bus_top_tb
+# End time: 13:19:04 on Dec 07,2023, Elapsed time: 0:11:55
+# Errors: 0, Warnings: 16
+# vsim -i -l msim_transcript -Lf altera_mf_ver -voptargs="+acc" work.bus_top_tb 
+# Start time: 13:19:04 on Dec 07,2023
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vopt-143) Recognized 1 FSM in module "arbiter(fast)".
+# ** Warning: /home/dakshina/Projects/ADS/system-bus/rtl/top.sv(194): (vopt-2685) [TFMPC] - Too few port connections for 'sp_1'.  Expected 14, found 13.
+# ** Warning: /home/dakshina/Projects/ADS/system-bus/rtl/top.sv(194): (vopt-2718) [TFMPC] - Missing connection for port 'split'.
+# ** Warning: /home/dakshina/Projects/ADS/system-bus/rtl/top.sv(234): (vopt-2685) [TFMPC] - Too few port connections for 'sp_3'.  Expected 14, found 13.
+# ** Warning: /home/dakshina/Projects/ADS/system-bus/rtl/top.sv(234): (vopt-2718) [TFMPC] - Missing connection for port 'split'.
+# ** Warning: /home/dakshina/Projects/ADS/system-bus/rtl/top.sv(253): (vopt-2685) [TFMPC] - Too few port connections for 'bb_s'.  Expected 14, found 13.
+# ** Warning: /home/dakshina/Projects/ADS/system-bus/rtl/top.sv(253): (vopt-2718) [TFMPC] - Missing connection for port 'split'.
+# ** Note: (vopt-143) Recognized 1 FSM in module "slave_port_v2(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "slave_port_v2(fast__1)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "slave_port_v2(fast__2)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "uart_rx(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "slave_bus_bridge(fast)".
+# ** Note: (vopt-143) Recognized 2 FSMs in module "demo(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "uart_tx(fast)".
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=6.
+# Loading sv_std.std
+# Loading work.bus_top_tb(fast)
+# Loading work.top(fast)
+# Loading work.demo(fast)
+# Loading work.seg(fast)
+# Loading work.master_port(fast)
+# Loading work.slave_port_v2(fast)
+# Loading work.slave_port_v2(fast__1)
+# Loading work.slave_port_v2(fast__2)
+# Loading work.slave_bus_bridge(fast)
+# Loading work.uart_tx(fast)
+# Loading work.uart_rx(fast)
+# Loading work.master_1_ram(fast)
+# Loading altera_mf_ver.altsyncram(fast)
+# Loading altera_mf_ver.altsyncram_body(fast)
+# Loading altera_mf_ver.ALTERA_DEVICE_FAMILIES(fast)
+# Loading altera_mf_ver.ALTERA_MF_MEMORY_INITIALIZATION(fast)
+# Loading work.master_2_ram(fast)
+# Loading altera_mf_ver.altsyncram(fast__1)
+# Loading altera_mf_ver.altsyncram_body(fast__1)
+# Loading work.slave_1_ram(fast)
+# Loading altera_mf_ver.altsyncram(fast__2)
+# Loading altera_mf_ver.altsyncram_body(fast__2)
+# Loading work.slave_2_ram(fast)
+# Loading altera_mf_ver.altsyncram(fast__3)
+# Loading altera_mf_ver.altsyncram_body(fast__3)
+# Loading work.slave_3_ram(fast)
+# Loading altera_mf_ver.altsyncram(fast__4)
+# Loading altera_mf_ver.altsyncram_body(fast__4)
+# Loading work.arbiter(fast)
+vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/master_port.sv
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:20:40 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/master_port.sv 
+# -- Compiling module master_port
+# 
+# Top level modules:
+# 	master_port
+# End time: 13:20:40 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Modified modelsim.ini
+vlog -reportprogress 300 -work work /home/dakshina/Projects/ADS/system-bus/rtl/master_port.sv
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:21:02 on Dec 07,2023
+# vlog -reportprogress 300 -work work /home/dakshina/Projects/ADS/system-bus/rtl/master_port.sv 
+# -- Compiling module master_port
+# 
+# Top level modules:
+# 	master_port
+# End time: 13:21:02 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim -coverage work.master_port
+# End time: 13:21:16 on Dec 07,2023, Elapsed time: 0:02:12
+# Errors: 0, Warnings: 6
+# vsim -coverage work.master_port 
+# Start time: 13:21:16 on Dec 07,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# Loading sv_std.std
+# Loading work.master_port(fast)
+vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/slave_port_v2.sv
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:25:35 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/slave_port_v2.sv 
+# -- Compiling module slave_port_v2
+# 
+# Top level modules:
+# 	slave_port_v2
+# End time: 13:25:35 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/slave_port_v2.sv
+# Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 13:25:38 on Dec 07,2023
+# vlog -reportprogress 300 -sv -work work "+incdir+/home/dakshina/Projects/ADS/system-bus/rtl" -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact /home/dakshina/Projects/ADS/system-bus/rtl/slave_port_v2.sv 
+# -- Compiling module slave_port_v2
+# 
+# Top level modules:
+# 	slave_port_v2
+# End time: 13:25:38 on Dec 07,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim -coverage work.slave_port_v2
+# End time: 13:25:55 on Dec 07,2023, Elapsed time: 0:04:39
+# Errors: 0, Warnings: 0
+# vsim -coverage work.slave_port_v2 
+# Start time: 13:25:55 on Dec 07,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# Loading sv_std.std
+# Loading work.slave_port_v2(fast)
+# End time: 17:07:30 on Dec 07,2023, Elapsed time: 3:41:35
+# Errors: 0, Warnings: 0

@@ -1,0 +1,24 @@
+DEPTH = 32;
+WIDTH = 8;
+ADDRESS_RADIX = HEX;
+DATA_RADIX = HEX;
+CONTENT
+BEGIN
+00 : 91;
+01 : 92;
+02 : 93;
+03 : 94;
+04 : 95;
+05 : 96;
+06 : 97;
+07 : 98;
+08 : 99;
+09 : 9A;
+0A : 9B;
+0B : 9C;
+0C : 9D;
+0D : 9E;
+0E : 9F;
+0F : 90;
+[10..1F] : 00;
+END;

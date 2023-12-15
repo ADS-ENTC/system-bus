@@ -1,0 +1,24 @@
+DEPTH = 4096;
+WIDTH = 8;c
+ADDRESS_RADIX = HEX;
+DATA_RADIX = HEX;
+CONTENT
+BEGIN
+00 : B1;
+01 : B2;
+02 : B3;
+03 : B4;
+04 : B5;
+05 : B6;
+06 : B7;
+07 : B8;
+08 : B9;
+09 : BA;
+0A : BB;
+0B : BC;
+0C : BD;
+0D : BE;
+0E : BF;
+0F : B0;
+[10..FFF] : 00;
+END;

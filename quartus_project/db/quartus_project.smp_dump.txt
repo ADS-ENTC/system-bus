@@ -1,0 +1,109 @@
+
+State Machine - |top_2|arbiter:arb|split_owner
+Name split_owner.NONE split_owner.M2 split_owner.M1 
+split_owner.NONE 0 0 0 
+split_owner.M1 1 0 1 
+split_owner.M2 1 1 0 
+
+State Machine - |top_2|arbiter:arb|state
+Name state.SPLIT state.REQ12 state.REQ2 state.REQ1 state.CLEAN state.CONNECTED state.ADDR state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 0 
+state.ADDR 0 0 0 0 0 0 1 1 
+state.CONNECTED 0 0 0 0 0 1 0 1 
+state.CLEAN 0 0 0 0 1 0 0 1 
+state.REQ1 0 0 0 1 0 0 0 1 
+state.REQ2 0 0 1 0 0 0 0 1 
+state.REQ12 0 1 0 0 0 0 0 1 
+state.SPLIT 1 0 0 0 0 0 0 1 
+
+State Machine - |top_2|uart_rx:s_uart_rx|state
+Name state.STT_DATA state.STT_WAIT state.STT_STOP 
+state.STT_WAIT 0 0 0 
+state.STT_STOP 0 1 1 
+state.STT_DATA 1 1 0 
+
+State Machine - |top_2|uart_tx:s_uart_tx|state
+Name state.STT_DATA state.STT_WAIT state.STT_STOP 
+state.STT_WAIT 0 0 0 
+state.STT_STOP 0 1 1 
+state.STT_DATA 1 1 0 
+
+State Machine - |top_2|slave_bus_bridge:bb_s|state
+Name state.SEND_RD_ADDR state.SPLIT state.SEND state.READ state.WRITE state.DATA_IN state.ADDR_IN state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 0 
+state.ADDR_IN 0 0 0 0 0 0 1 1 
+state.DATA_IN 0 0 0 0 0 1 0 1 
+state.WRITE 0 0 0 0 1 0 0 1 
+state.READ 0 0 0 1 0 0 0 1 
+state.SEND 0 0 1 0 0 0 0 1 
+state.SPLIT 0 1 0 0 0 0 0 1 
+state.SEND_RD_ADDR 1 0 0 0 0 0 0 1 
+
+State Machine - |top_2|slave_port_v2:sp_3|state
+Name state.SPLIT state.SEND state.READ state.WRITE state.DATA_IN state.ADDR_IN state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 
+state.ADDR_IN 0 0 0 0 0 1 1 
+state.DATA_IN 0 0 0 0 1 0 1 
+state.WRITE 0 0 0 1 0 0 1 
+state.READ 0 0 1 0 0 0 1 
+state.SEND 0 1 0 0 0 0 1 
+state.SPLIT 1 0 0 0 0 0 1 
+
+State Machine - |top_2|slave_port_v2:sp_2|state
+Name state.SPLIT state.SEND state.READ state.WRITE state.DATA_IN state.ADDR_IN state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 
+state.ADDR_IN 0 0 0 0 0 1 1 
+state.DATA_IN 0 0 0 0 1 0 1 
+state.WRITE 0 0 0 1 0 0 1 
+state.READ 0 0 1 0 0 0 1 
+state.SEND 0 1 0 0 0 0 1 
+state.SPLIT 1 0 0 0 0 0 1 
+
+State Machine - |top_2|slave_port_v2:sp_1|state
+Name state.SPLIT state.SEND state.READ state.WRITE state.DATA_IN state.ADDR_IN state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 
+state.ADDR_IN 0 0 0 0 0 1 1 
+state.DATA_IN 0 0 0 0 1 0 1 
+state.WRITE 0 0 0 1 0 0 1 
+state.READ 0 0 1 0 0 0 1 
+state.SEND 0 1 0 0 0 0 1 
+state.SPLIT 1 0 0 0 0 0 1 
+
+State Machine - |top_2|uart_rx:m_uart_rx|state
+Name state.STT_DATA state.STT_WAIT state.STT_STOP 
+state.STT_WAIT 0 0 0 
+state.STT_STOP 0 1 1 
+state.STT_DATA 1 1 0 
+
+State Machine - |top_2|uart_tx:m_uart_tx|state
+Name state.STT_DATA state.STT_WAIT state.STT_STOP 
+state.STT_WAIT 0 0 0 
+state.STT_STOP 0 1 1 
+state.STT_DATA 1 1 0 
+
+State Machine - |top_2|bb_master_port:mp_bb|state
+Name state.DEQ state.FETCH state.TIMEOUT_STATE state.SPLIT state.CLEAN state.RD_DATA state.WR_DATA state.ADDR_2 state.ADDR_1 state.REQ state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 0 0 0 0 
+state.REQ 0 0 0 0 0 0 0 0 0 1 1 
+state.ADDR_1 0 0 0 0 0 0 0 0 1 0 1 
+state.ADDR_2 0 0 0 0 0 0 0 1 0 0 1 
+state.WR_DATA 0 0 0 0 0 0 1 0 0 0 1 
+state.RD_DATA 0 0 0 0 0 1 0 0 0 0 1 
+state.CLEAN 0 0 0 0 1 0 0 0 0 0 1 
+state.SPLIT 0 0 0 1 0 0 0 0 0 0 1 
+state.TIMEOUT_STATE 0 0 1 0 0 0 0 0 0 0 1 
+state.FETCH 0 1 0 0 0 0 0 0 0 0 1 
+state.DEQ 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |top_2|master_port:mp_1|state
+Name state.TIMEOUT_STATE state.SPLIT state.CLEAN state.RD_DATA state.WR_DATA state.ADDR_2 state.ADDR_1 state.FETCH state.REQ state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 0 0 0 
+state.REQ 0 0 0 0 0 0 0 0 1 1 
+state.FETCH 0 0 0 0 0 0 0 1 0 1 
+state.ADDR_1 0 0 0 0 0 0 1 0 0 1 
+state.ADDR_2 0 0 0 0 0 1 0 0 0 1 
+state.WR_DATA 0 0 0 0 1 0 0 0 0 1 
+state.RD_DATA 0 0 0 1 0 0 0 0 0 1 
+state.CLEAN 0 0 1 0 0 0 0 0 0 1 
+state.SPLIT 0 1 0 0 0 0 0 0 0 1 
+state.TIMEOUT_STATE 1 0 0 0 0 0 0 0 0 1 

@@ -1,0 +1,420 @@
+m255
+K4
+z2
+Z0 !s99 nomlopt
+R0
+R0
+R0
+!s11f vlog 2021.2 2021.04, Apr 14 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z1 d/home/dakshina/Projects/ADS/system-bus/quartus_project/simulation/questa
+T_opt
+!s110 1701935345
+VmoI;]8Ghg?B??QX=;KRBm3
+04 10 4 work bus_top_tb fast 0
+=1-000ae431a4f1-657178f1-737d-11b2f
+!s124 OEM10U21 
+o-quiet -auto_acc_if_foreign -work work -Lf altera_mf_ver +acc
+Z2 tCvgOpt 0
+n@_opt
+Z3 OL;O;2021.2;73
+R1
+T_opt1
+!s110 1701935476
+V`c1_eY<4;X:z1T11iS7:z1
+04 11 4 work master_port fast 0
+=1-000ae431a4f1-65717974-ddf74-11cee
+Z4 !s124 OEM10U1 
+Z5 o-quiet -auto_acc_if_foreign -work work
+R2
+n@_opt1
+R3
+R1
+T_opt2
+!s110 1701935755
+V]VD:zFRP@<a``@Nc1EcMh3
+04 13 4 work slave_port_v2 fast 0
+=1-000ae431a4f1-65717a8b-50746-12082
+R4
+R5
+R2
+n@_opt2
+R3
+varbiter
+Z6 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z7 !s110 1701935326
+!i10b 1
+!s100 6M9KkTe_K8>`T0hhFiJdM2
+I;=1M3jOfR?:<bo3HdWS]?3
+S1
+R1
+w1701934541
+8/home/dakshina/Projects/ADS/system-bus/rtl/arbiter.sv
+F/home/dakshina/Projects/ADS/system-bus/rtl/arbiter.sv
+!i122 15
+L0 1 389
+Z8 VDg1SIo80bB@j0V0VzS_@n1
+Z9 OL;L;2021.2;73
+r1
+!s85 0
+31
+Z10 !s108 1701935326.000000
+!s107 /home/dakshina/Projects/ADS/system-bus/rtl/arbiter.sv|
+!s90 -F=/home/dakshina/Projects/ADS/system-bus/quartus_project/simulation/questa/vlog.opt|-F=|-reportprogress|300|-sv|-work|work|+incdir+/home/dakshina/Projects/ADS/system-bus/rtl|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|/home/dakshina/Projects/ADS/system-bus/rtl/arbiter.sv|
+!i113 0
+Z11 o-sv -work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z12 !s92 -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/rtl -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z13 tCoverage 15 Svlog 1 CvgOpt 0
+vbus_top_tb
+R6
+R7
+!i10b 1
+!s100 dGIc5hzL=MV_zDC7:H;^>2
+I^KC]`lQRB]@LnC^K0RVCn3
+S1
+R1
+w1701933266
+8/home/dakshina/Projects/ADS/system-bus/tb/bus_top_tb.sv
+F/home/dakshina/Projects/ADS/system-bus/tb/bus_top_tb.sv
+!i122 16
+L0 3 134
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 /home/dakshina/Projects/ADS/system-bus/tb/bus_top_tb.sv|
+!s90 -F=/home/dakshina/Projects/ADS/system-bus/quartus_project/simulation/questa/vlog.opt|-F=|-reportprogress|300|-work|work|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|/home/dakshina/Projects/ADS/system-bus/tb/bus_top_tb.sv|
+!i113 0
+Z14 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R13
+vdemo
+R6
+R7
+!i10b 1
+!s100 ]IHeX=IcS0I;IN4oL[eGi3
+I=HNX7[mf:ZzE9nFaeDdza2
+S1
+R1
+w1701849067
+8/home/dakshina/Projects/ADS/system-bus/rtl/demo.sv
+F/home/dakshina/Projects/ADS/system-bus/rtl/demo.sv
+!i122 17
+L0 2 97
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 /home/dakshina/Projects/ADS/system-bus/rtl/demo.sv|
+!s90 -F=/home/dakshina/Projects/ADS/system-bus/quartus_project/simulation/questa/vlog.opt|-F=|-reportprogress|300|-sv|-work|work|+incdir+/home/dakshina/Projects/ADS/system-bus/rtl|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|/home/dakshina/Projects/ADS/system-bus/rtl/demo.sv|
+!i113 0
+R11
+R12
+R13
+vmaster_1_ram
+R6
+R7
+!i10b 1
+!s100 j2:_IIA>?D^[4ZiQ;LYZF3
+IG_FZ<PFid7U8`oo?;OQ^]3
+S1
+R1
+w1701770840
+8/home/dakshina/Projects/ADS/system-bus/quartus_project/master_1_ram.v
+F/home/dakshina/Projects/ADS/system-bus/quartus_project/master_1_ram.v
+!i122 18
+Z15 L0 40 66
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 /home/dakshina/Projects/ADS/system-bus/quartus_project/master_1_ram.v|
+!s90 -F=/home/dakshina/Projects/ADS/system-bus/quartus_project/simulation/questa/vlog.opt|-F=|-reportprogress|300|-sv|-work|work|+incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|/home/dakshina/Projects/ADS/system-bus/quartus_project/master_1_ram.v|
+!i113 0
+R11
+Z16 !s92 -sv -work work +incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R13
+vmaster_2_ram
+R6
+R7
+!i10b 1
+!s100 IdY1GJmHgPmG8j^GO>PYX1
+IMcTKKDkJn`QhUH0S<G_hU0
+S1
+R1
+w1701808244
+8/home/dakshina/Projects/ADS/system-bus/quartus_project/master_2_ram.v
+F/home/dakshina/Projects/ADS/system-bus/quartus_project/master_2_ram.v
+!i122 19
+R15
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 /home/dakshina/Projects/ADS/system-bus/quartus_project/master_2_ram.v|
+!s90 -F=/home/dakshina/Projects/ADS/system-bus/quartus_project/simulation/questa/vlog.opt|-F=|-reportprogress|300|-sv|-work|work|+incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|/home/dakshina/Projects/ADS/system-bus/quartus_project/master_2_ram.v|
+!i113 0
+R11
+R16
+R13
+vmaster_port
+R6
+!s110 1701935462
+!i10b 1
+!s100 <J@g?EOfzbB?2WEJnS9=g1
+I_7]>?X>R[DCThcIkNS]mb3
+S1
+R1
+w1701891648
+8/home/dakshina/Projects/ADS/system-bus/rtl/master_port.sv
+F/home/dakshina/Projects/ADS/system-bus/rtl/master_port.sv
+!i122 31
+L0 1 119
+R8
+R9
+r1
+!s85 0
+31
+!s108 1701935462.000000
+!s107 /home/dakshina/Projects/ADS/system-bus/rtl/master_port.sv|
+!s90 -F=/home/dakshina/Projects/ADS/system-bus/quartus_project/simulation/questa/vlog.opt|-F=|-reportprogress|300|-work|work|/home/dakshina/Projects/ADS/system-bus/rtl/master_port.sv|
+!i113 0
+R14
+R13
+vseg
+R6
+R7
+!i10b 1
+!s100 ZAJ<P[aER0JLU[]oH0EJF0
+IJ96DEUE62cTbn7fI:=:j80
+S1
+R1
+w1701848059
+8/home/dakshina/Projects/ADS/system-bus/rtl/seg.v
+F/home/dakshina/Projects/ADS/system-bus/rtl/seg.v
+!i122 21
+L0 1 25
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 /home/dakshina/Projects/ADS/system-bus/rtl/seg.v|
+!s90 -F=/home/dakshina/Projects/ADS/system-bus/quartus_project/simulation/questa/vlog.opt|-F=|-reportprogress|300|-sv|-work|work|+incdir+/home/dakshina/Projects/ADS/system-bus/rtl|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|/home/dakshina/Projects/ADS/system-bus/rtl/seg.v|
+!i113 0
+R11
+R12
+R13
+vslave_1_ram
+R6
+Z17 !s110 1701935327
+!i10b 1
+!s100 <2g5=@e2PhzUTnKLhJNjW2
+IhbcKGW?1LTiSz0nZFHD0g3
+S1
+R1
+w1701787305
+8/home/dakshina/Projects/ADS/system-bus/quartus_project/slave_1_ram.v
+F/home/dakshina/Projects/ADS/system-bus/quartus_project/slave_1_ram.v
+!i122 22
+R15
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 /home/dakshina/Projects/ADS/system-bus/quartus_project/slave_1_ram.v|
+!s90 -F=/home/dakshina/Projects/ADS/system-bus/quartus_project/simulation/questa/vlog.opt|-F=|-reportprogress|300|-sv|-work|work|+incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|/home/dakshina/Projects/ADS/system-bus/quartus_project/slave_1_ram.v|
+!i113 0
+R11
+R16
+R13
+vslave_2_ram
+R6
+R17
+!i10b 1
+!s100 0EE2hzIdBPd[iA4ER9U[M2
+I_k@BiOLQV5K>GzMjl:E@_2
+S1
+R1
+w1701791934
+8/home/dakshina/Projects/ADS/system-bus/quartus_project/slave_2_ram.v
+F/home/dakshina/Projects/ADS/system-bus/quartus_project/slave_2_ram.v
+!i122 23
+R15
+R8
+R9
+r1
+!s85 0
+31
+Z18 !s108 1701935327.000000
+!s107 /home/dakshina/Projects/ADS/system-bus/quartus_project/slave_2_ram.v|
+!s90 -F=/home/dakshina/Projects/ADS/system-bus/quartus_project/simulation/questa/vlog.opt|-F=|-reportprogress|300|-sv|-work|work|+incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|/home/dakshina/Projects/ADS/system-bus/quartus_project/slave_2_ram.v|
+!i113 0
+R11
+R16
+R13
+vslave_3_ram
+R6
+R17
+!i10b 1
+!s100 ZglaBS0RE8`f86RlV?HQ^3
+I5?kPRam>[=So_WDG@l@U52
+S1
+R1
+w1701791980
+8/home/dakshina/Projects/ADS/system-bus/quartus_project/slave_3_ram.v
+F/home/dakshina/Projects/ADS/system-bus/quartus_project/slave_3_ram.v
+!i122 24
+R15
+R8
+R9
+r1
+!s85 0
+31
+R18
+!s107 /home/dakshina/Projects/ADS/system-bus/quartus_project/slave_3_ram.v|
+!s90 -F=/home/dakshina/Projects/ADS/system-bus/quartus_project/simulation/questa/vlog.opt|-F=|-reportprogress|300|-sv|-work|work|+incdir+/home/dakshina/Projects/ADS/system-bus/quartus_project|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|/home/dakshina/Projects/ADS/system-bus/quartus_project/slave_3_ram.v|
+!i113 0
+R11
+R16
+R13
+vslave_bus_bridge
+R6
+R17
+!i10b 1
+!s100 7iWjJR0`>Ri1`FDabmj4L3
+IobORM0?KiUMQ@hcm0an2[1
+S1
+R1
+w1701862166
+8/home/dakshina/Projects/ADS/system-bus/rtl/slave_bus_bridge.sv
+F/home/dakshina/Projects/ADS/system-bus/rtl/slave_bus_bridge.sv
+!i122 25
+L0 1 94
+R8
+R9
+r1
+!s85 0
+31
+R18
+!s107 /home/dakshina/Projects/ADS/system-bus/rtl/slave_bus_bridge.sv|
+!s90 -F=/home/dakshina/Projects/ADS/system-bus/quartus_project/simulation/questa/vlog.opt|-F=|-reportprogress|300|-sv|-work|work|+incdir+/home/dakshina/Projects/ADS/system-bus/rtl|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|/home/dakshina/Projects/ADS/system-bus/rtl/slave_bus_bridge.sv|
+!i113 0
+R11
+R12
+R13
+vslave_port_v2
+R6
+!s110 1701935738
+!i10b 1
+!s100 UPT6onbd3Ee1ild;Jf;810
+ISWQV51Pda?^6FB`31[[H20
+S1
+R1
+w1701854069
+8/home/dakshina/Projects/ADS/system-bus/rtl/slave_port_v2.sv
+F/home/dakshina/Projects/ADS/system-bus/rtl/slave_port_v2.sv
+!i122 33
+L0 1 95
+R8
+R9
+r1
+!s85 0
+31
+!s108 1701935738.000000
+!s107 /home/dakshina/Projects/ADS/system-bus/rtl/slave_port_v2.sv|
+!s90 -F=/home/dakshina/Projects/ADS/system-bus/quartus_project/simulation/questa/vlog.opt|-F=|-reportprogress|300|-sv|-work|work|+incdir+/home/dakshina/Projects/ADS/system-bus/rtl|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|/home/dakshina/Projects/ADS/system-bus/rtl/slave_port_v2.sv|
+!i113 0
+R11
+R12
+R13
+vtop
+R6
+R17
+!i10b 1
+!s100 h;P<9QVo7h[I9>5fXG2Ke1
+IG@0QDAGk0fMNHFJ@H[XzU2
+S1
+R1
+w1701862089
+8/home/dakshina/Projects/ADS/system-bus/rtl/top.sv
+F/home/dakshina/Projects/ADS/system-bus/rtl/top.sv
+!i122 27
+L0 1 336
+R8
+R9
+r1
+!s85 0
+31
+R18
+!s107 /home/dakshina/Projects/ADS/system-bus/rtl/top.sv|
+!s90 -F=/home/dakshina/Projects/ADS/system-bus/quartus_project/simulation/questa/vlog.opt|-F=|-reportprogress|300|-sv|-work|work|+incdir+/home/dakshina/Projects/ADS/system-bus/rtl|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|/home/dakshina/Projects/ADS/system-bus/rtl/top.sv|
+!i113 0
+R11
+R12
+R13
+vuart_rx
+R6
+R17
+!i10b 1
+!s100 9ALfHo>zeZ0DKSI9L]eol2
+I71NKmi`EJWXI2cdAFRmCU2
+S1
+R1
+Z19 w1701860534
+8/home/dakshina/Projects/ADS/system-bus/rtl/uart_rx.sv
+F/home/dakshina/Projects/ADS/system-bus/rtl/uart_rx.sv
+!i122 28
+L0 25 178
+R8
+R9
+r1
+!s85 0
+31
+R18
+!s107 /home/dakshina/Projects/ADS/system-bus/rtl/uart_rx.sv|
+!s90 -F=/home/dakshina/Projects/ADS/system-bus/quartus_project/simulation/questa/vlog.opt|-F=|-reportprogress|300|-sv|-work|work|+incdir+/home/dakshina/Projects/ADS/system-bus/rtl|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|/home/dakshina/Projects/ADS/system-bus/rtl/uart_rx.sv|
+!i113 0
+R11
+R12
+R13
+vuart_tx
+R6
+R17
+!i10b 1
+!s100 WS4;g3k;FK4@2edBS`aoD0
+IT:6D9M0[36eb@EiKDdW@93
+S1
+R1
+R19
+8/home/dakshina/Projects/ADS/system-bus/rtl/uart_tx.sv
+F/home/dakshina/Projects/ADS/system-bus/rtl/uart_tx.sv
+!i122 29
+L0 25 121
+R8
+R9
+r1
+!s85 0
+31
+R18
+!s107 /home/dakshina/Projects/ADS/system-bus/rtl/uart_tx.sv|
+!s90 -F=/home/dakshina/Projects/ADS/system-bus/quartus_project/simulation/questa/vlog.opt|-F=|-reportprogress|300|-sv|-work|work|+incdir+/home/dakshina/Projects/ADS/system-bus/rtl|-L|mtiAvm|-L|mtiRnm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|-L|infact|/home/dakshina/Projects/ADS/system-bus/rtl/uart_tx.sv|
+!i113 0
+R11
+R12
+R13

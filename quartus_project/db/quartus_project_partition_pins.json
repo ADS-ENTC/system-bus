@@ -1,0 +1,245 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "rstn_led",
+					"strict" : false
+				},
+				{
+					"name" : "m1_ack_led",
+					"strict" : false
+				},
+				{
+					"name" : "m1_master_ready_led",
+					"strict" : false
+				},
+				{
+					"name" : "m1_slave_valid_led",
+					"strict" : false
+				},
+				{
+					"name" : "m1_slave_ready_led",
+					"strict" : false
+				},
+				{
+					"name" : "m1_master_valid_led",
+					"strict" : false
+				},
+				{
+					"name" : "s1_master_ready_led",
+					"strict" : false
+				},
+				{
+					"name" : "s1_slave_valid_led",
+					"strict" : false
+				},
+				{
+					"name" : "s1_slave_ready_led",
+					"strict" : false
+				},
+				{
+					"name" : "s1_master_valid_led",
+					"strict" : false
+				},
+				{
+					"name" : "m1_mode_led",
+					"strict" : false
+				},
+				{
+					"name" : "m2_mode_led",
+					"strict" : false
+				},
+				{
+					"name" : "hex0[0]",
+					"strict" : false
+				},
+				{
+					"name" : "hex0[1]",
+					"strict" : false
+				},
+				{
+					"name" : "hex0[2]",
+					"strict" : false
+				},
+				{
+					"name" : "hex0[3]",
+					"strict" : false
+				},
+				{
+					"name" : "hex0[4]",
+					"strict" : false
+				},
+				{
+					"name" : "hex0[5]",
+					"strict" : false
+				},
+				{
+					"name" : "hex0[6]",
+					"strict" : false
+				},
+				{
+					"name" : "hex2[0]",
+					"strict" : false
+				},
+				{
+					"name" : "hex2[1]",
+					"strict" : false
+				},
+				{
+					"name" : "hex2[2]",
+					"strict" : false
+				},
+				{
+					"name" : "hex2[3]",
+					"strict" : false
+				},
+				{
+					"name" : "hex2[4]",
+					"strict" : false
+				},
+				{
+					"name" : "hex2[5]",
+					"strict" : false
+				},
+				{
+					"name" : "hex2[6]",
+					"strict" : false
+				},
+				{
+					"name" : "s_sig_tx",
+					"strict" : false
+				},
+				{
+					"name" : "s_ready_tx",
+					"strict" : false
+				},
+				{
+					"name" : "m_sig_tx",
+					"strict" : false
+				},
+				{
+					"name" : "m_ready_tx",
+					"strict" : false
+				},
+				{
+					"name" : "keysn[3]",
+					"strict" : false
+				},
+				{
+					"name" : "clk",
+					"strict" : false
+				},
+				{
+					"name" : "keysn[1]",
+					"strict" : false
+				},
+				{
+					"name" : "keysn[0]",
+					"strict" : false
+				},
+				{
+					"name" : "addr[9]",
+					"strict" : false
+				},
+				{
+					"name" : "addr[5]",
+					"strict" : false
+				},
+				{
+					"name" : "addr[13]",
+					"strict" : false
+				},
+				{
+					"name" : "addr[1]",
+					"strict" : false
+				},
+				{
+					"name" : "addr[6]",
+					"strict" : false
+				},
+				{
+					"name" : "addr[10]",
+					"strict" : false
+				},
+				{
+					"name" : "addr[14]",
+					"strict" : false
+				},
+				{
+					"name" : "addr[2]",
+					"strict" : false
+				},
+				{
+					"name" : "addr[7]",
+					"strict" : false
+				},
+				{
+					"name" : "addr[11]",
+					"strict" : false
+				},
+				{
+					"name" : "addr[15]",
+					"strict" : false
+				},
+				{
+					"name" : "addr[3]",
+					"strict" : false
+				},
+				{
+					"name" : "addr[8]",
+					"strict" : false
+				},
+				{
+					"name" : "addr[4]",
+					"strict" : false
+				},
+				{
+					"name" : "addr[12]",
+					"strict" : false
+				},
+				{
+					"name" : "addr[0]",
+					"strict" : false
+				},
+				{
+					"name" : "s_ready_rx",
+					"strict" : false
+				},
+				{
+					"name" : "keysn[2]",
+					"strict" : false
+				},
+				{
+					"name" : "m_ready_rx",
+					"strict" : false
+				},
+				{
+					"name" : "s_sig_rx",
+					"strict" : false
+				},
+				{
+					"name" : "m_sig_rx",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tms",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tck",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tdi",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tdo",
+					"strict" : false
+				}
+			]
+		}
+	]
+}
