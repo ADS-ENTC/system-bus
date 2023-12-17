@@ -40,7 +40,7 @@ always_comb begin : NEXT_STATE_DECODER
     endcase
 end
 
-always_ff@(posedge clk) begin : STATE_SEQUENCER
+always_ff@(posedge clk or negedge rstn) begin : STATE_SEQUENCER
     if (!rstn) state <= IDLE;
     else state <= next_state;
 end

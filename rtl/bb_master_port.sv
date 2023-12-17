@@ -63,7 +63,7 @@ module bb_master_port (
         fifo_deq = state == DEQ;
     end
 
-    always_ff @(posedge clk) begin : REG_LOGIC
+    always_ff @(posedge clk or negedge rstn) begin : REG_LOGIC
         if (!rstn) begin
             t_count   <= 0;
             t_wr_data <= 0;

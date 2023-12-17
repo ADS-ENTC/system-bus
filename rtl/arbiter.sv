@@ -336,7 +336,7 @@ module arbiter#(
         endcase
     end
 
-    always_ff @(posedge clk) begin : REG_LOGIC
+    always_ff @(posedge clk or negedge rstn) begin : REG_LOGIC
         if (!rstn) begin
             t_count     <= 0;
             t_addr      <= 0;
