@@ -20,7 +20,7 @@
 ## PROGRAM "Quartus Prime"
 ## VERSION "Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition"
 
-## DATE    "Fri Dec 15 17:22:20 2023"
+## DATE    "Fri Dec 15 17:24:47 2023"
 
 ##
 ## DEVICE  "EP4CE115F29C7"
@@ -52,6 +52,7 @@ create_clock -name {clk} -period 26.000 -waveform { 0.000 13.000 } [get_ports {c
 # Set Clock Latency
 #**************************************************************
 
+set_clock_latency -source   1.000 [get_clocks {clk}]
 
 
 #**************************************************************
